@@ -24,15 +24,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-        trayicon.cpp
+    main.cpp \
+    mainwindow.cpp \
+    trayicon.cpp \
+    settingswindow.cpp
 
 HEADERS += \
-        mainwindow.h \
-        trayicon.h
+    mainwindow.h \
+    trayicon.h \
+    settingswindow.h
 
 RESOURCES += \
     resources.qrc
 
-FORMS +=
+FORMS += \
+    settingswindow.ui

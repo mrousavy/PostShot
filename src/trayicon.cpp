@@ -1,6 +1,7 @@
 #include "trayicon.h"
 #include <QSystemTrayIcon>
 #include <QAction>
+#include "settingswindow.h"
 
 TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
  : QObject(parent), _app(app)
@@ -84,12 +85,8 @@ void TrayIcon::cbGif()
 
 void TrayIcon::cbSettings()
 {
-    /*
-    SettingsWindow* window = new SettingsWindow;
-    Ui::SettingsWindow ui;
-    ui.setupUi(window);
+    SettingsWindow* window = new SettingsWindow();
     window->show();
-    */
 }
 
 void TrayIcon::cbExit()

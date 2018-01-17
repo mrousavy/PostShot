@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 {
     // Create the application
     QApplication app(argc, argv);
+    app.setQuitOnLastWindowClosed(false);
 
     // Register resources
     QResource::registerResource("../res/camera-icon.png");
