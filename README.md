@@ -9,3 +9,19 @@
 </p>
 
 **PostShot** is a lightweight tool that is designed to make sharing images way **easier and faster**, while still containing lots of customizability.
+
+# Links
+> TODO :)
+
+> demo goes here
+
+## Why choose PostShot?
+> TODO :)
+
+# How to use
+> TODO :)
+
+# Features
+> TODO :)
+
+> More screenshots go here
