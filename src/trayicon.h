@@ -1,16 +1,19 @@
 #ifndef TRAYICON_H
 #define TRAYICON_H
-#include <qsystemtrayicon.h>
-#include <qmenu.h>
+#include <QMenu>
+#include <QObject>
+#include <QSystemTrayIcon>
+#include <QDialog>
 
-class TrayIcon
+class TrayIcon : public QObject
 {
+    Q_OBJECT
 public:
     /*!
      * \fn TrayIcon::TrayIcon(QIcon& icon, QWidget& parent)
      * Construct a new \b{tray icon} for PostShot
     */
-    TrayIcon(QIcon& icon, QWidget* parent = nullptr);
+    TrayIcon(QObject* parent, QIcon& icon);
 
     /*!
      * \fn TrayIcon::~TrayIcon()
@@ -23,6 +26,10 @@ public:
      * \brief Show the \b{tray icon}
     */
     void show();
+
+public slots:
+    void settings();
+
 private:
     QSystemTrayIcon* _trayIcon;
     QMenu* _menu;
