@@ -38,7 +38,7 @@ void TrayIcon::hide()
 
 void TrayIcon::loadMenu()
 {
-    _menu = new QMenu("QMenu text");
+    _menu = new QMenu(tr("PostShot background service"));
 
     QIcon icHelp(":/res/help.png");
     QIcon icImage(":/res/image.png");

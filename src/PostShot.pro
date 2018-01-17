@@ -27,10 +27,12 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         trayicon.cpp \
+    settingswindow.cpp
 
 HEADERS += \
         mainwindow.h \
         trayicon.h \
+    settingswindow.h
 
 RESOURCES += \
     resources.qrc
