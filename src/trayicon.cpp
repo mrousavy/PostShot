@@ -1,5 +1,4 @@
 #include "trayicon.h"
-#include "settingswindow.h"
 #include <QSystemTrayIcon>
 #include <QAction>
 
@@ -85,8 +84,12 @@ void TrayIcon::cbGif()
 
 void TrayIcon::cbSettings()
 {
-    SettingsWindow* window = new SettingsWindow();
+    /*
+    SettingsWindow* window = new SettingsWindow;
+    Ui::SettingsWindow ui;
+    ui.setupUi(window);
     window->show();
+    */
 }
 
 void TrayIcon::cbExit()

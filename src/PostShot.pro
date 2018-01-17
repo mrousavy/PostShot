@@ -26,13 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        trayicon.cpp \
-    settingswindow.cpp
+        trayicon.cpp
 
 HEADERS += \
         mainwindow.h \
-        trayicon.h \
-    settingswindow.h
+        trayicon.h
 
 RESOURCES += \
     resources.qrc
+
+FORMS +=
