@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSystemTrayIcon>
 #include <QDialog>
+#include <QApplication>
 
 class TrayIcon : public QObject
 {
@@ -13,7 +14,7 @@ public:
      * \fn TrayIcon::TrayIcon(QIcon& icon, QWidget& parent)
      * Construct a new \b{tray icon} for PostShot
     */
-    TrayIcon(QObject* parent, QIcon& icon);
+    TrayIcon(QObject* parent, QIcon& icon, QApplication& app);
 
     /*!
      * \fn TrayIcon::~TrayIcon()
@@ -40,6 +41,7 @@ private:
     void loadMenu();
 
     //// Properties ////
+    QApplication& _app;
     QSystemTrayIcon* _trayIcon;
     QMenu* _menu;
     QAction* actionHelp;
