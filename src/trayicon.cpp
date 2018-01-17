@@ -2,14 +2,11 @@
 #include <QSystemTrayIcon>
 #include <QAction>
 
-TrayIcon::TrayIcon(QObject* parent, QIcon& icon)
- : QObject(parent)
+TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
+ : QObject(parent), _app(app)
 {
     _trayIcon = new QSystemTrayIcon(icon, parent);
-    _menu = new QMenu("QMenu text");
-
-    auto* settingsAction = new QAction(tr("&Settings"));
-    QObject::connect(settingsAction, SIGNAL(QAction::triggered(bool)), this, SLOT(settings()));
+    loadMenu();
 }
 
 TrayIcon::~TrayIcon()
@@ -60,4 +57,24 @@ void TrayIcon::loadMenu()
 void TrayIcon::cbHelp()
 {
     printf("Settings clicked.");
+}
+
+void TrayIcon::cbImage()
+{
+    printf("Settings clicked.");
+}
+
+void TrayIcon::cbGif()
+{
+    printf("Settings clicked.");
+}
+
+void TrayIcon::cbSettings()
+{
+    printf("Settings clicked.");
+}
+
+void TrayIcon::cbExit()
+{
+    _app.exit();
 }
