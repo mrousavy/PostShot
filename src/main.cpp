@@ -11,6 +11,15 @@ int main(int argc, char *argv[])
 
     // Register resources
     QResource::registerResource("../res/camera-icon.png");
+    QResource::registerResource("../res/help.png");
+    QResource::registerResource("../res/image.png");
+    QResource::registerResource("../res/gif.png");
+    QResource::registerResource("../res/settings.png");
+    QResource::registerResource("../res/exit.png");
+
+    // Create App Icon
+    QIcon appIcon(":/res/camera-icon.png");
+
 
     // Create a Tray Icon
     QIcon icon(":/res/camera-icon.png");

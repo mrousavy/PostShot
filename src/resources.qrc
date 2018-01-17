@@ -1,5 +1,10 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>../res/camera-icon.png</file>
+    <file>../res/help.png</file>
+    <file>../res/image.png</file>
+    <file>../res/gif.png</file>
+    <file>../res/settings.png</file>
+    <file>../res/exit.png</file>
 </qresource>
 </RCC>
