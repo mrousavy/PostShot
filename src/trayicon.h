@@ -27,12 +27,26 @@ public:
     */
     void show();
 
-public slots:
-    void settings();
+private slots:
+    //// Callbacks  ////
+    void cbHelp();
+    void cbImage();
+    void cbGif();
+    void cbSettings();
+    void cbExit();
 
 private:
+    //// Functions  ////
+    void loadMenu();
+
+    //// Properties ////
     QSystemTrayIcon* _trayIcon;
     QMenu* _menu;
+    QAction* actionHelp;
+    QAction* actionImage;
+    QAction* actionGif;
+    QAction* actionSettings;
+    QAction* actionExit;
 };
 
 #endif // TRAYICON_H
