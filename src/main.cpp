@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     // Create a Tray Icon
     QIcon icon(":/res/camera-icon.png");
-    TrayIcon tray(icon);
+    TrayIcon tray(nullptr, icon);
     tray.show();
 
     // Start the Main Window
