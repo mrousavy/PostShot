@@ -1,4 +1,5 @@
 #include "trayicon.h"
+#include "settingswindow.h"
 #include <QSystemTrayIcon>
 #include <QAction>
 
@@ -6,6 +7,7 @@ TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
  : QObject(parent), _app(app)
 {
     _trayIcon = new QSystemTrayIcon(icon, parent);
+    _trayIcon->setToolTip("PostShot");
     loadMenu();
 }
 
@@ -29,6 +31,10 @@ void TrayIcon::show()
     _trayIcon->show();
 }
 
+void TrayIcon::hide()
+{
+    _trayIcon->hide();
+}
 
 void TrayIcon::loadMenu()
 {
@@ -41,15 +47,15 @@ void TrayIcon::loadMenu()
     QIcon icExit(":/res/exit.png");
 
     actionHelp = new QAction(icHelp, tr("Help"));
-    connect(actionHelp, &QAction::triggered, this, &cbHelp);
+    connect(actionHelp, &QAction::triggered, this, &TrayIcon::cbHelp);
     actionImage = new QAction(icImage, tr("Image"));
-    connect(actionImage, &QAction::triggered, this, &cbImage);
+    connect(actionImage, &QAction::triggered, this, &TrayIcon::cbImage);
     actionGif = new QAction(icGif, tr("GIF"));
-    connect(actionGif, &QAction::triggered, this, &cbGif);
+    connect(actionGif, &QAction::triggered, this, &TrayIcon::cbGif);
     actionSettings = new QAction(icSettings, tr("Settings"));
-    connect(actionSettings, &QAction::triggered, this, &cbSettings);
+    connect(actionSettings, &QAction::triggered, this, &TrayIcon::cbSettings);
     actionExit = new QAction(icExit, tr("Exit"));
-    connect(actionExit, &QAction::triggered, this, &cbExit);
+    connect(actionExit, &QAction::triggered, this, &TrayIcon::cbExit);
 
     _menu->addAction(actionHelp);
     _menu->addSeparator();
@@ -64,22 +70,23 @@ void TrayIcon::loadMenu()
 
 void TrayIcon::cbHelp()
 {
-    printf("Settings clicked.");
+    printf("Help clicked.");
 }
 
 void TrayIcon::cbImage()
 {
-    printf("Settings clicked.");
+    printf("Image clicked.");
 }
 
 void TrayIcon::cbGif()
 {
-    printf("Settings clicked.");
+    printf("GIF clicked.");
 }
 
 void TrayIcon::cbSettings()
 {
-    printf("Settings clicked.");
+    SettingsWindow* window = new SettingsWindow();
+    window->show();
 }
 
 void TrayIcon::cbExit()
