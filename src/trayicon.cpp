@@ -34,20 +34,28 @@ void TrayIcon::loadMenu()
 {
     _menu = new QMenu("QMenu text");
 
-    actionHelp = new QAction(tr("Help"));
-    connect(actionHelp, QAction::triggered, this, cbHelp);
-    actionImage = new QAction(tr("Image"));
-    connect(actionImage, QAction::triggered, this, cbImage);
-    actionGif = new QAction(tr("GIF"));
-    connect(actionGif, QAction::triggered, this, cbGif);
-    actionSettings = new QAction(tr("Settings"));
-    connect(actionSettings, QAction::triggered, this, cbSettings);
-    actionExit = new QAction(tr("Exit"));
-    connect(actionExit, QAction::triggered, this, cbExit);
+    QIcon icHelp(":/res/help.png");
+    QIcon icImage(":/res/image.png");
+    QIcon icGif(":/res/gif.png");
+    QIcon icSettings(":/res/settings.png");
+    QIcon icExit(":/res/exit.png");
+
+    actionHelp = new QAction(icHelp, tr("Help"));
+    connect(actionHelp, &QAction::triggered, this, &cbHelp);
+    actionImage = new QAction(icImage, tr("Image"));
+    connect(actionImage, &QAction::triggered, this, &cbImage);
+    actionGif = new QAction(icGif, tr("GIF"));
+    connect(actionGif, &QAction::triggered, this, &cbGif);
+    actionSettings = new QAction(icSettings, tr("Settings"));
+    connect(actionSettings, &QAction::triggered, this, &cbSettings);
+    actionExit = new QAction(icExit, tr("Exit"));
+    connect(actionExit, &QAction::triggered, this, &cbExit);
 
     _menu->addAction(actionHelp);
+    _menu->addSeparator();
     _menu->addAction(actionImage);
     _menu->addAction(actionGif);
+    _menu->addSeparator();
     _menu->addAction(actionSettings);
     _menu->addAction(actionExit);
 
