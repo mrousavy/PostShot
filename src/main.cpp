@@ -2,12 +2,13 @@
 #include "trayicon.h"
 #include <QApplication>
 #include <QResource>
+#include <QMessageBox>
 
 
 int main(int argc, char *argv[])
 {
     // Create the application
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
 
     // Register resources
     QResource::registerResource("../res/camera-icon.png");
@@ -20,18 +21,19 @@ int main(int argc, char *argv[])
     // Create App Icon
     QIcon appIcon(":/res/camera-icon.png");
 
+    // Check if Tray Icons are available
+    if (!QSystemTrayIcon::isSystemTrayAvailable()) {
+        // Show error messagebox
+        QMessageBox::critical(0, QObject::tr("PostShot - System Tray"),
+                              QObject::tr("No System Tray detected "
+                                          "on this System."));
+        return -1;
+    }
 
     // Create a Tray Icon
-    QIcon icon(":/res/camera-icon.png");
-    TrayIcon tray(nullptr, icon, a);
+    TrayIcon tray(nullptr, appIcon, app);
     tray.show();
 
-    // Start the Main Window
-    MainWindow w;
-    w.resize(500, 500);
-    w.show();
-    w.setWindowTitle(QApplication::translate("toplevel", "Top-level widget"));
-
     // Execute Application
-    return a.exec();
+    return app.exec();
 }
