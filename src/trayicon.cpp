@@ -2,6 +2,7 @@
 #include <QSystemTrayIcon>
 #include <QAction>
 #include "settingswindow.h"
+#include "screenshot.h"
 
 TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
  : QObject(parent), _app(app)
@@ -81,6 +82,7 @@ void TrayIcon::cbImage()
 void TrayIcon::cbGif()
 {
     printf("GIF clicked.");
+    Screenshot::getScreenshot(0, 0, 500, 500);
 }
 
 void TrayIcon::cbSettings()
