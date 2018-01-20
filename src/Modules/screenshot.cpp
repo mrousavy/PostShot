@@ -14,7 +14,7 @@ QPixmap Screenshot::getScreenshot(int fromX, int fromY, int toX, int toY)
     return screen->grabWindow(0);
 }
 
-QPixmap Screenshot::getScreenshotFull()
+QPixmap* Screenshot::getScreenshotFull()
 {
     auto screens = QGuiApplication::screens();
     if (screens.length() < 1)
@@ -28,9 +28,9 @@ QPixmap Screenshot::getScreenshotFull()
         if (h < pix.height()) h = pix.height();
         scrs << pix;
     }
-    QPixmap final(w, h);
-    QPainter painter(&final);
-    final.fill(Qt::black);
+    QPixmap* final = new QPixmap(w, h);
+    QPainter painter(final);
+    final->fill(Qt::transparent);
     foreach (auto scr, scrs)
     {
         painter.drawPixmap(QPoint(p, 0), scr);
