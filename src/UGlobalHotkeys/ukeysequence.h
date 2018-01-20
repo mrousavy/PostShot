@@ -1,5 +1,4 @@
-#ifndef KEYSEQUENCE_H
-#define KEYSEQUENCE_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -7,29 +6,28 @@
 #include <QStringList>
 #include <QKeyEvent>
 
-#include "globals.h"
+#include "uexception.h"
+#include "uglobal.h"
 
-class HOTKEY_EXPORT KeySequence : public QObject
+class UGLOBALHOTKEY_EXPORT UKeySequence : public QObject
 {
     Q_OBJECT
 public:
-    explicit KeySequence(QObject *parent = 0);
-    explicit KeySequence(const QString& str, QObject *parent = 0);
+    explicit UKeySequence(QObject *parent = 0);
+    explicit UKeySequence(const QString& str, QObject *parent = 0);
     void FromString(const QString& str);
     QString ToString();
     void AddKey(int key);
     void AddKey(const QString& key);
     void AddModifiers(Qt::KeyboardModifiers mod);
     void AddKey(const QKeyEvent* event);
-
-    inline size_t Size() const
-    {
+    inline size_t Size() const {
         return Keys.size();
     }
-    inline int operator [] (size_t n) const
-    {
-        if ((int)n > Keys.size())
-            throw std::exception("Out of bounds");
+    inline int operator [] (size_t n) const {
+        if ((int)n > Keys.size()) {
+            throw UException("Out of bounds");
+        }
         return Keys[n];
     }
     QVector<int> GetSimpleKeys() const;
@@ -38,5 +36,3 @@ private:
     QVector<int> Keys;
 };
 
-
-#endif // KEYSEQUENCE_H

@@ -5,6 +5,9 @@
 #-------------------------------------------------
 
 QT       += core gui
+unix {
+    QT += gui-private
+}
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +19,11 @@ TEMPLATE = app
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += UGLOBALHOTKEY_LIBRARY
+
+include(uglobalhotkey-headers.pri)
+include(uglobalhotkey-sources.pri)
+include(uglobalhotkey-libs.pri)
 
 
 # You can also make your code fail to compile if you use deprecated APIs.
@@ -30,16 +38,20 @@ SOURCES += \
     trayicon.cpp \
     settingswindow.cpp \
     screenshot.cpp \
-    hotkey.cpp \
-    keysequence.cpp
+    UGlobalHotkeys/uexception.cpp \
+    UGlobalHotkeys/uglobalhotkeys.cpp \
+    UGlobalHotkeys/ukeysequence.cpp
 
 HEADERS += \
     mainwindow.h \
     trayicon.h \
     settingswindow.h \
     screenshot.h \
-    hotkey.h \
-    keysequence.h \
+    UGlobalHotkeys/hotkeymap.h \
+    UGlobalHotkeys/uexception.h \
+    UGlobalHotkeys/uglobal.h \
+    UGlobalHotkeys/uglobalhotkeys.h \
+    UGlobalHotkeys/ukeysequence.h \
     globals.h
 
 RESOURCES += \
@@ -47,3 +59,9 @@ RESOURCES += \
 
 FORMS += \
     settingswindow.ui
+
+DISTFILES += \
+    UGlobalHotkeys/uglobalhotkey.pri \
+    UGlobalHotkeys/uglobalhotkey-headers.pri \
+    UGlobalHotkeys/uglobalhotkey-libs.pri \
+    UGlobalHotkeys/uglobalhotkey-sources.pri
