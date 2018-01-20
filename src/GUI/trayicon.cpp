@@ -11,6 +11,24 @@ TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
     _trayIcon = new QSystemTrayIcon(icon, parent);
     _trayIcon->setToolTip("PostShot");
     loadMenu();
+
+    connect(_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
+}
+
+
+void TrayIcon::cbTrayClick(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason)
+    {
+    case QSystemTrayIcon::Trigger:
+    case QSystemTrayIcon::DoubleClick:
+        cbImage();
+    case QSystemTrayIcon::MiddleClick:
+        cbGif();
+    default:
+        return;
+    }
 }
 
 TrayIcon::~TrayIcon()
@@ -77,9 +95,8 @@ void TrayIcon::cbHelp()
 
 void TrayIcon::cbImage()
 {
-    printf("Image clicked.");
-    auto pixmap = Screenshot::getScreenshotFull();
-    ImageManipulation::saveImage(pixmap);
+    auto capture = new CaptureImage();
+    capture->showFullScreen();
 }
 
 void TrayIcon::cbGif()

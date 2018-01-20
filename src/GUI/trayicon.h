@@ -39,6 +39,8 @@ private slots:
     void cbSettings();
     void cbExit();
 
+    void cbTrayClick(QSystemTrayIcon::ActivationReason reason);
+
 private:
     //// Functions  ////
     void loadMenu();
