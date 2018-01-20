@@ -17,10 +17,9 @@ int main(int argc, char *argv[])
 
     // Register Image hotkey
     hotkeyManager->registerHotkey("Ctrl+Shift+I");
-    QObject::connect(hotkeyManager, &UGlobalHotkeys::activated, [=](size_t id)
+    QObject::connect(hotkeyManager, &UGlobalHotkeys::activated, [=]()
     {
-        auto capture = new CaptureImage();
-        capture->showFullScreen();
+        new CaptureImage();
     });
 
     // Register resources
