@@ -1,10 +1,8 @@
 #include "screenshot.h"
-
-// TODO: REMOVE Q_OS_WIN
-#define Q_OS_WIN
+#include <QtCore>
 
 // OS Specific Screenshot implementations
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
 
 
     // Windows
