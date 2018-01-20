@@ -31,6 +31,7 @@ SOURCES += \
     settingswindow.cpp \
     screenshot.cpp \
     hotkey.cpp \
+    keysequence.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -38,6 +39,8 @@ HEADERS += \
     settingswindow.h \
     screenshot.h \
     hotkey.h \
+    keysequence.h \
+    globals.h
 
 RESOURCES += \
     resources.qrc
