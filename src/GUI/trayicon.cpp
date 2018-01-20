@@ -1,9 +1,11 @@
 #include "trayicon.h"
 #include <QSystemTrayIcon>
 #include <QAction>
-#include "settingswindow.h"
-#include "../Modules/screenshot.h"
-#include "../Modules/imagemanipulation.h"
+
+#include "Modules/screenshot.h"
+#include "Modules/imagemanipulation.h"
+#include "GUI/captureimage.h"
+#include "GUI/settingswindow.h"
 
 TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
  : QObject(parent), _app(app)
@@ -13,7 +15,7 @@ TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
     loadMenu();
 
     connect(_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-            this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
+            this, SLOT(cbTrayClick(QSystemTrayIcon::ActivationReason)));
 }
 
 
@@ -24,10 +26,12 @@ void TrayIcon::cbTrayClick(QSystemTrayIcon::ActivationReason reason)
     case QSystemTrayIcon::Trigger:
     case QSystemTrayIcon::DoubleClick:
         cbImage();
+        break;
     case QSystemTrayIcon::MiddleClick:
         cbGif();
+        break;
     default:
-        return;
+        break;
     }
 }
 
@@ -95,15 +99,14 @@ void TrayIcon::cbHelp()
 
 void TrayIcon::cbImage()
 {
-    auto capture = new CaptureImage();
-    capture->showFullScreen();
+    new CaptureImage();
 }
 
 void TrayIcon::cbGif()
 {
     printf("GIF clicked.");
-    auto pixmap = Screenshot::getScreenshot(0, 0, 500, 500);
-    ImageManipulation::saveImage(pixmap);
+    auto pixmap = Screenshot::getScreenshotFull();
+    ImageManipulation::saveImage(*pixmap);
 }
 
 void TrayIcon::cbSettings()
