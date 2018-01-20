@@ -1,6 +1,8 @@
 #include <QtCore>
+
 #if defined(Q_OS_WIN)
-#include <windows.h>
+#include <Windows.h>
+#pragma comment(lib,"user32.lib")
 #elif defined(Q_OS_LINUX)
 #include <QWindow>
 #include <qpa/qplatformnativeinterface.h>
