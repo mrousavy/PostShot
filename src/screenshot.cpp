@@ -39,13 +39,13 @@ QPixmap Screenshot::getScreenshotFull()
     return final;
 }
 
-          array[(x + width * y) * 3] = red;
-          array[(x + width * y) * 3+1] = green;
-          array[(x + width * y) * 3+2] = blue;
-       }
+QPixmap Screenshot::getScreenshotPrimary()
+{
+    QScreen *screen = QGuiApplication::primaryScreen();
+    if (!screen)
+        throw std::exception("Could not get primary screen!");
 
-    CImg<unsigned char> pic(array,width,height,1,3);
-    pic.save_png("blah.png");
+    return screen->grabWindow(0);
 }
 
 
