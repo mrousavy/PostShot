@@ -2,8 +2,8 @@
 #include <QSystemTrayIcon>
 #include <QAction>
 #include "settingswindow.h"
-#include "screenshot.h"
-#include "imagemanipulation.h"
+#include "../Modules/screenshot.h"
+#include "../Modules/imagemanipulation.h"
 
 TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
  : QObject(parent), _app(app)

@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "trayicon.h"
+#include "GUI/mainwindow.h"
+#include "GUI/trayicon.h"
 #include <QApplication>
 #include <QResource>
 #include <QMessageBox>

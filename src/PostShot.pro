@@ -34,36 +34,38 @@ include(uglobalhotkey-libs.pri)
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp \
-    trayicon.cpp \
-    settingswindow.cpp \
-    screenshot.cpp \
     UGlobalHotkeys/uexception.cpp \
     UGlobalHotkeys/uglobalhotkeys.cpp \
     UGlobalHotkeys/ukeysequence.cpp \
-    imagemanipulation.cpp
+    GUI/mainwindow.cpp \
+    GUI/settingswindow.cpp \
+    GUI/trayicon.cpp \
+    Modules/imagemanipulation.cpp \
+    Modules/screenshot.cpp
 
 HEADERS += \
-    mainwindow.h \
-    trayicon.h \
-    settingswindow.h \
-    screenshot.h \
     UGlobalHotkeys/hotkeymap.h \
     UGlobalHotkeys/uexception.h \
     UGlobalHotkeys/uglobal.h \
     UGlobalHotkeys/uglobalhotkeys.h \
     UGlobalHotkeys/ukeysequence.h \
     globals.h \
-    imagemanipulation.h
+    GUI/mainwindow.h \
+    GUI/settingswindow.h \
+    GUI/trayicon.h \
+    Modules/imagemanipulation.h \
+    Modules/screenshot.h
 
 RESOURCES += \
     resources.qrc
 
 FORMS += \
-    settingswindow.ui
+    GUI/settingswindow.ui
 
 DISTFILES += \
     UGlobalHotkeys/uglobalhotkey.pri \
     UGlobalHotkeys/uglobalhotkey-headers.pri \
     UGlobalHotkeys/uglobalhotkey-libs.pri \
-    UGlobalHotkeys/uglobalhotkey-sources.pri
+    UGlobalHotkeys/uglobalhotkey-sources.pri \
+    Modules/screenshot.cpp.old.go \
+    Modules/screenshot.h.old.go
