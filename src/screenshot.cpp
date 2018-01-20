@@ -48,9 +48,16 @@ QPixmap Screenshot::getScreenshotPrimary()
     return screen->grabWindow(0);
 }
 
+QPixmap Screenshot::getScreenshotWindow(const WId window)
+{
+    QScreen *screen = QGuiApplication::primaryScreen();
+    if (!screen)
+        throw std::exception("Could not get primary screen!");
 
+    return screen->grabWindow(window);
+}
 
-#elif defined(Q_OS_MACX)
-    // Mac OS X
-
-#endif
+QPixmap Screenshot::getScreenshotWindow(const QWidget& widget)
+{
+    return getScreenshotWindow(widget.winId());
+}
