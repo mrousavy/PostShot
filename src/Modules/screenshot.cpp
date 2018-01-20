@@ -19,22 +19,23 @@ QPixmap* Screenshot::getScreenshotFull()
     auto screens = QGuiApplication::screens();
     if (screens.length() < 1)
         throw std::exception("No screens were found!");
-    QList<QPixmap> scrs;
+    QList<QPixmap> pixmaps;
     int w = 0, h = 0, p = 0;
     foreach (auto scr, screens)
     {
-        QPixmap pix = scr->grabWindow(0);
-        w += pix.width();
-        if (h < pix.height()) h = pix.height();
-        scrs << pix;
+        QPixmap pixmap = scr->grabWindow(0);
+        w += pixmap.width();
+        if (h < pixmap.height()) h = pixmap.height();
+        pixmaps << pixmap;
     }
+
     QPixmap* final = new QPixmap(w, h);
-    QPainter painter(final);
     final->fill(Qt::transparent);
-    foreach (auto scr, scrs)
+    QPainter painter(final);
+    foreach (auto pixmap, pixmaps)
     {
-        painter.drawPixmap(QPoint(p, 0), scr);
-        p += scr.width();
+        painter.drawPixmap(QPoint(p, 0), pixmap);
+        p += pixmap.width();
     }
     return final;
 }
