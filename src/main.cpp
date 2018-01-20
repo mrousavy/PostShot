@@ -1,4 +1,3 @@
-#include "GUI/mainwindow.h"
 #include "GUI/trayicon.h"
 #include <QApplication>
 #include <QResource>
@@ -46,7 +45,5 @@ int main(int argc, char *argv[])
     tray.show();
 
     // Execute Application
-    int exitCode = app.exec();
-
-    return exitCode;
+    return app.exec();
 }

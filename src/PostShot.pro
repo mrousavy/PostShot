@@ -37,7 +37,6 @@ SOURCES += \
     UGlobalHotkeys/uexception.cpp \
     UGlobalHotkeys/uglobalhotkeys.cpp \
     UGlobalHotkeys/ukeysequence.cpp \
-    GUI/mainwindow.cpp \
     GUI/settingswindow.cpp \
     GUI/trayicon.cpp \
     Modules/imagemanipulation.cpp \
@@ -50,7 +49,6 @@ HEADERS += \
     UGlobalHotkeys/uglobalhotkeys.h \
     UGlobalHotkeys/ukeysequence.h \
     globals.h \
-    GUI/mainwindow.h \
     GUI/settingswindow.h \
     GUI/trayicon.h \
     Modules/imagemanipulation.h \
