@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     hotkeyManager = &hk;
 
     // Register Image hotkey
-    hotkeyManager->registerHotkey("Ctrl+Shift+H");
+    hotkeyManager->registerHotkey("Ctrl+Shift+I");
     QObject::connect(hotkeyManager, &UGlobalHotkeys::activated, [=](size_t id)
     {
         auto capture = new CaptureImage();

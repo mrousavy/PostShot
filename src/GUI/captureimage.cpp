@@ -31,11 +31,8 @@ bool CaptureImage::eventFilter(QObject* obj, QEvent* event)
         {
             std::function<bool(void)> func = std::bind(&CaptureImage::close, this);
             Animation::fade(this, 200, 0.3, 0.0, &func);
-        } else
-        {
-            return QObject::eventFilter(obj, event);
+            return true;
         }
-        return true;
     }
 
     return QObject::eventFilter(obj, event);
