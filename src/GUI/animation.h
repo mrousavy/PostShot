@@ -2,6 +2,7 @@
 #define ANIMATION_H
 #include <QWidget>
 #include <QPropertyAnimation>
+#include <functional>
 
 namespace Animation
 {
@@ -13,9 +14,10 @@ namespace Animation
  * \param func The std::function callback on animation finish
  * \return The created playing QPropertyAnimation
  */
-template <typename F>
+template <typename Sig = void(void), typename Func = std::function<Sig>>
 void fade(QObject* widget, int duration,
-          double startValue, double endValue, F func = nullptr)
+          double startValue, double endValue,
+          Func* func = nullptr)
 {
     QPropertyAnimation* animation = new QPropertyAnimation(widget, "windowOpacity");
     animation->setDuration(duration);
@@ -23,8 +25,9 @@ void fade(QObject* widget, int duration,
     animation->setEndValue(endValue);
     animation->setEasingCurve(QEasingCurve::Linear);
     animation->start(QPropertyAnimation::DeleteWhenStopped);
+
     if (func != nullptr)
-        QObject::connect(animation, &QPropertyAnimation::finished, func);
+        QObject::connect(animation, &QPropertyAnimation::finished, *func);
 }
 
 }
