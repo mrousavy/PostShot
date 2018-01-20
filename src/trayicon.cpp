@@ -3,6 +3,7 @@
 #include <QAction>
 #include "settingswindow.h"
 #include "screenshot.h"
+#include "imagemanipulation.h"
 
 TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
  : QObject(parent), _app(app)
@@ -77,12 +78,15 @@ void TrayIcon::cbHelp()
 void TrayIcon::cbImage()
 {
     printf("Image clicked.");
+    auto pixmap = Screenshot::getScreenshotFull();
+    ImageManipulation::saveImage(pixmap);
 }
 
 void TrayIcon::cbGif()
 {
     printf("GIF clicked.");
-    Screenshot::getScreenshot(0, 0, 500, 500);
+    auto pixmap = Screenshot::getScreenshot(0, 0, 500, 500);
+    ImageManipulation::saveImage(pixmap);
 }
 
 void TrayIcon::cbSettings()

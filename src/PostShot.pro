@@ -40,7 +40,8 @@ SOURCES += \
     screenshot.cpp \
     UGlobalHotkeys/uexception.cpp \
     UGlobalHotkeys/uglobalhotkeys.cpp \
-    UGlobalHotkeys/ukeysequence.cpp
+    UGlobalHotkeys/ukeysequence.cpp \
+    imagemanipulation.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -52,7 +53,8 @@ HEADERS += \
     UGlobalHotkeys/uglobal.h \
     UGlobalHotkeys/uglobalhotkeys.h \
     UGlobalHotkeys/ukeysequence.h \
-    globals.h
+    globals.h \
+    imagemanipulation.h
 
 RESOURCES += \
     resources.qrc
