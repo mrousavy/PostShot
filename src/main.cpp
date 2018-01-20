@@ -3,13 +3,23 @@
 #include <QApplication>
 #include <QResource>
 #include <QMessageBox>
-
+#include "globals.h"
 
 int main(int argc, char *argv[])
 {
     // Create the application
     QApplication app(argc, argv);
     app.setQuitOnLastWindowClosed(false);
+    UGlobalHotkeys hk;
+    hotkeyManager = &hk;
+
+    // Register Image hotkey
+    hotkeyManager->registerHotkey("Ctrl+Shift+H");
+    QObject::connect(hotkeyManager, &UGlobalHotkeys::activated, [=](size_t id)
+    {
+        QMessageBox::information(0, QObject::tr("PostShot - Hotkey Manager"),
+                              QObject::tr("A hotkey was triggered."), Qt::NoButton);
+    });
 
     // Register resources
     QResource::registerResource("../res/camera-icon.png");
@@ -36,5 +46,7 @@ int main(int argc, char *argv[])
     tray.show();
 
     // Execute Application
-    return app.exec();
+    int exitCode = app.exec();
+
+    return exitCode;
 }
