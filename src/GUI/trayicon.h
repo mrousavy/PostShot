@@ -11,24 +11,22 @@ class TrayIcon : public QObject
     Q_OBJECT
 public:
     /*!
-     * \fn TrayIcon::TrayIcon(QIcon& icon, QWidget& parent)
-     * \brief Construct a new \b{tray icon} for PostShot
+     * \brief TrayIcon Construct a new \b{tray icon} for PostShot
     */
     TrayIcon(QObject* parent, QIcon& icon, QApplication& app);
 
     /*!
-     * \fn TrayIcon::~TrayIcon()
-     * \brief Deconstruct and dispose the \b{tray icon}
+     * \brief ~TrayIcon Deconstruct and dispose the \b{tray icon}
     */
     ~TrayIcon();
 
     /*!
-     * \brief Show the \b{tray icon}
+     * \brief show Show the \b{tray icon}
     */
     void show();
 
     /*!
-     * \brief Hide the tray icon (this
+     * \brief hide Hide the tray icon (this
      * does \b{not} free any resources)
     */
     void hide();
