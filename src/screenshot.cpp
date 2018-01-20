@@ -14,47 +14,30 @@ QPixmap Screenshot::getScreenshot(int fromX, int fromY, int toX, int toY)
     return screen->grabWindow(0);
 }
 
-
-
-#elif defined(Q_OS_X11)
-
-
-
-    // Linux Xorg (X11)
-    #include <X11/Xlib.h>
-    #include <X11/X.h>
-    #include <cstdio>
-    #include <CImg.h>
-    using namespace cimg_library;
-
-void Screenshot::getScreenshot(POINT from, POINT to)
+QPixmap Screenshot::getScreenshotFull()
 {
-    Display *display = XOpenDisplay(NULL);
-    Window root = DefaultRootWindow(display);
-
-    XWindowAttributes gwa;
-
-    XGetWindowAttributes(display, root, &gwa);
-    int width = gwa.width;
-    int height = gwa.height;
-
-
-    XImage *image = XGetImage(display,root, 0,0 , width,height,AllPlanes, ZPixmap);
-
-    unsigned char *array = new unsigned char[width * height * 3];
-
-    unsigned long red_mask = image->red_mask;
-    unsigned long green_mask = image->green_mask;
-    unsigned long blue_mask = image->blue_mask;
-
-    for (int x = 0; x < width; x++)
-       for (int y = 0; y < height ; y++)
-       {
-          unsigned long pixel = XGetPixel(image,x,y);
-
-          unsigned char blue = pixel & blue_mask;
-          unsigned char green = (pixel & green_mask) >> 8;
-          unsigned char red = (pixel & red_mask) >> 16;
+    auto screens = QGuiApplication::screens();
+    if (screens.length() < 1)
+        throw std::exception("No screens were found!");
+    QList<QPixmap> scrs;
+    int w = 0, h = 0, p = 0;
+    foreach (auto scr, screens)
+    {
+        QPixmap pix = scr->grabWindow(0);
+        w += pix.width();
+        if (h < pix.height()) h = pix.height();
+        scrs << pix;
+    }
+    QPixmap final(w, h);
+    QPainter painter(&final);
+    final.fill(Qt::black);
+    foreach (auto scr, scrs)
+    {
+        painter.drawPixmap(QPoint(p, 0), scr);
+        p += scr.width();
+    }
+    return final;
+}
 
           array[(x + width * y) * 3] = red;
           array[(x + width * y) * 3+1] = green;
