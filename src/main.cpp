@@ -1,8 +1,11 @@
-#include "GUI/trayicon.h"
 #include <QApplication>
 #include <QResource>
 #include <QMessageBox>
+
 #include "globals.h"
+#include "GUI/captureimage.h"
+#include "GUI/trayicon.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -16,8 +19,8 @@ int main(int argc, char *argv[])
     hotkeyManager->registerHotkey("Ctrl+Shift+H");
     QObject::connect(hotkeyManager, &UGlobalHotkeys::activated, [=](size_t id)
     {
-        QMessageBox::information(0, QObject::tr("PostShot - Hotkey Manager"),
-                              QObject::tr("A hotkey was triggered."), Qt::NoButton);
+        auto capture = new CaptureImage();
+        capture->showFullScreen();
     });
 
     // Register resources

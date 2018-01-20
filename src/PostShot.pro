@@ -40,7 +40,8 @@ SOURCES += \
     GUI/settingswindow.cpp \
     GUI/trayicon.cpp \
     Modules/imagemanipulation.cpp \
-    Modules/screenshot.cpp
+    Modules/screenshot.cpp \
+    GUI/captureimage.cpp
 
 HEADERS += \
     UGlobalHotkeys/hotkeymap.h \
@@ -52,7 +53,8 @@ HEADERS += \
     GUI/settingswindow.h \
     GUI/trayicon.h \
     Modules/imagemanipulation.h \
-    Modules/screenshot.h
+    Modules/screenshot.h \
+    GUI/captureimage.h
 
 RESOURCES += \
     resources.qrc
