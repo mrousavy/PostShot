@@ -54,7 +54,8 @@ HEADERS += \
     GUI/trayicon.h \
     Modules/imagemanipulation.h \
     Modules/screenshot.h \
-    GUI/captureimage.h
+    GUI/captureimage.h \
+    GUI/animation.h
 
 RESOURCES += \
     resources.qrc
