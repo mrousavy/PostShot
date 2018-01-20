@@ -29,13 +29,15 @@ SOURCES += \
     mainwindow.cpp \
     trayicon.cpp \
     settingswindow.cpp \
-    screenshot.cpp
+    screenshot.cpp \
+    hotkey.cpp \
 
 HEADERS += \
     mainwindow.h \
     trayicon.h \
     settingswindow.h \
-    screenshot.h
+    screenshot.h \
+    hotkey.h \
 
 RESOURCES += \
     resources.qrc
