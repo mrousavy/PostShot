@@ -30,8 +30,8 @@ CaptureImage::CaptureImage(QWidget *parent)
     activateWindow();
     Animation::fade(this, 200, 0.0, 0.3); // fade in
 
-    auto windows = getAllWindows();
-    foreach(auto window, windows)
+    QList<QRect> windows = getAllWindows();
+    foreach (auto window, windows)
     {
         qDebug() << window.height() << "\n";
     }

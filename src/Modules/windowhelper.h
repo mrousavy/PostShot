@@ -8,23 +8,25 @@
 #if defined(Q_OS_WIN)
 #include <Windows.h>
 
-BOOL CALLBACK enumWindowsCallback(
-  __in  HWND hWnd,
-  __in  LPARAM lParam
-) {
-  QList<QRect>& windows = reinterpret_cast<QList<QRect>&>(lParam);
-  QRect rect;
-  windows.append(rect);
+BOOL CALLBACK enumWindowsProc(
+        __in  HWND hWnd,
+        __in  LPARAM lParam)
+{
+  QList<QRect>* windows = reinterpret_cast<QList<QRect>*>(lParam);
+  RECT rect;
+  GetWindowRect(hWnd, &rect);
+
+  QRect qrect;
+  qrect.setCoords(rect.left, rect.top, rect.right, rect.bottom);
+  windows->append(qrect);
 
   return TRUE;
 }
 
 QList<QRect> getAllWindows()
 {
-    qDebug() << "Get windows..\n";
     QList<QRect> windows;
-    BOOL success = EnumWindows(&enumWindowsCallback, reinterpret_cast<LPARAM>(&windows));
-    qDebug() << "Enuming windows..\n";
+    BOOL success = EnumWindows(enumWindowsProc, reinterpret_cast<LPARAM>(&windows));
     if (!success) throw std::exception("Could not enumerate windows!");
     return windows;
 }
