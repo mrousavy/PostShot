@@ -106,7 +106,7 @@ void TrayIcon::cbGif()
 {
     printf("GIF clicked.");
     auto pixmap = Screenshot::getScreenshotFull();
-    ImageManipulation::saveImage(*pixmap);
+    ImageManipulation::saveImage(pixmap);
 }
 
 void TrayIcon::cbSettings()

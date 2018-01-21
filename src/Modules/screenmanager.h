@@ -7,7 +7,7 @@
 
 namespace ScreenManager
 {
-QPoint getTopLeft()
+inline QPoint getTopLeft()
 {
     int lX = 0, lY = 0;
     foreach(auto screen, QApplication::screens())
@@ -22,7 +22,7 @@ QPoint getTopLeft()
     return QPoint(lX, lY);
 }
 
-QPoint getBottomRight()
+inline QPoint getBottomRight()
 {
     int hX = 0, hY = 0;
     foreach(auto screen, QApplication::screens())
@@ -37,7 +37,7 @@ QPoint getBottomRight()
     return QPoint(hX, hY);
 }
 
-QRect getVirtualDesktop()
+inline QRect getVirtualDesktop()
 {
     QPoint start = getTopLeft();
     QPoint end = getBottomRight();

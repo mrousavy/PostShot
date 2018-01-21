@@ -4,6 +4,8 @@
 #include <QtWidgets>
 #include <QList>
 
+#include "Modules/screenmanager.h"
+
 
 QPixmap Screenshot::getScreenshot(int fromX, int fromY, int toX, int toY)
 {
@@ -14,28 +16,31 @@ QPixmap Screenshot::getScreenshot(int fromX, int fromY, int toX, int toY)
     return screen->grabWindow(0);
 }
 
-QPixmap* Screenshot::getScreenshotFull()
+QPixmap Screenshot::getScreenshotFull()
 {
     auto screens = QGuiApplication::screens();
     if (screens.length() < 1)
         throw std::exception("No screens were found!");
-    QList<QPixmap> pixmaps;
-    int w = 0, h = 0, p = 0;
-    foreach (auto scr, screens)
-    {
-        QPixmap pixmap = scr->grabWindow(0);
-        w += pixmap.width();
-        if (h < pixmap.height()) h = pixmap.height();
-        pixmaps << pixmap;
-    }
 
-    QPixmap* final = new QPixmap(w, h);
-    final->fill(Qt::transparent);
-    QPainter painter(final);
-    foreach (auto pixmap, pixmaps)
+    QRect rect = ScreenManager::getVirtualDesktop();
+
+    int offsetX = - rect.left(); // e.g. -1920 if screen#2 is left of #1
+    int offsetY = - rect.top();
+
+    QPixmap final(rect.width(), rect.height());
+    final.fill(Qt::transparent);
+    QPainter painter(&final);
+
+    foreach (QScreen* screen, screens)
     {
-        painter.drawPixmap(QPoint(p, 0), pixmap);
-        p += pixmap.width();
+        QRect position = screen->availableGeometry();
+        position.setLeft(position.left() + offsetX);
+        position.setTop(position.top() + offsetY);
+        position.setRight(position.right() + offsetX);
+        position.setBottom(position.bottom() + offsetY);
+
+        painter.drawPixmap(position,
+                           screen->grabWindow(0));
     }
     return final;
 }
