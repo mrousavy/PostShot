@@ -56,7 +56,8 @@ HEADERS += \
     Modules/screenshot.h \
     GUI/captureimage.h \
     GUI/animation.h \
-    GUI/screenmanager.h
+    GUI/screenmanager.h \
+    Modules/windowhelper.h
 
 RESOURCES += \
     resources.qrc
