@@ -56,7 +56,7 @@ HEADERS += \
     Modules/screenshot.h \
     GUI/captureimage.h \
     GUI/animation.h \
-    GUI/screenmanager.h \
+    Modules/screenmanager.h \
     Modules/windowhelper.h
 
 RESOURCES += \

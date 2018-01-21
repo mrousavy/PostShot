@@ -7,7 +7,7 @@
 
 #include "GUI/animation.h"
 #include "GUI/captureimage.h"
-#include "GUI/screenmanager.h"
+#include "Modules/screenmanager.h"
 #include "Modules/windowhelper.h"
 
 #include <QDebug>
