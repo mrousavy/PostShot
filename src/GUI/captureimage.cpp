@@ -8,8 +8,14 @@
 #include "GUI/animation.h"
 #include "GUI/captureimage.h"
 #include "GUI/screenmanager.h"
+#include "Modules/windowhelper.h"
 
-CaptureImage::CaptureImage(QWidget *parent) : QWidget(parent, Qt::Window | Qt::FramelessWindowHint)
+#include <QDebug>
+#include <QList>
+#include <Windows.h>
+
+CaptureImage::CaptureImage(QWidget *parent)
+    : QWidget(parent, Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint)
 {
     setAttribute(Qt::WA_NoSystemBackground);
     setWindowOpacity(0.0);
@@ -23,6 +29,12 @@ CaptureImage::CaptureImage(QWidget *parent) : QWidget(parent, Qt::Window | Qt::F
     show();
     activateWindow();
     Animation::fade(this, 200, 0.0, 0.3); // fade in
+
+    auto windows = getAllWindows();
+    foreach(auto window, windows)
+    {
+        qDebug() << window.height() << "\n";
+    }
 }
 
 
