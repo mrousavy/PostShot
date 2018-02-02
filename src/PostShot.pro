@@ -21,9 +21,9 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += UGLOBALHOTKEY_LIBRARY
 
-include(uglobalhotkey-headers.pri)
-include(uglobalhotkey-sources.pri)
-include(uglobalhotkey-libs.pri)
+include(UGlobalHotkeys/uglobalhotkey-headers.pri)
+include(UGlobalHotkeys/uglobalhotkey-sources.pri)
+include(UGlobalHotkeys/uglobalhotkey-libs.pri)
 
 
 # You can also make your code fail to compile if you use deprecated APIs.
