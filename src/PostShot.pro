@@ -34,9 +34,6 @@ include(UGlobalHotkeys/uglobalhotkey-libs.pri)
 
 SOURCES += \
     main.cpp \
-    UGlobalHotkeys/uexception.cpp \
-    UGlobalHotkeys/uglobalhotkeys.cpp \
-    UGlobalHotkeys/ukeysequence.cpp \
     GUI/settingswindow.cpp \
     GUI/trayicon.cpp \
     Modules/imagemanipulation.cpp \
@@ -44,11 +41,6 @@ SOURCES += \
     GUI/captureimage.cpp
 
 HEADERS += \
-    UGlobalHotkeys/hotkeymap.h \
-    UGlobalHotkeys/uexception.h \
-    UGlobalHotkeys/uglobal.h \
-    UGlobalHotkeys/uglobalhotkeys.h \
-    UGlobalHotkeys/ukeysequence.h \
     globals.h \
     GUI/settingswindow.h \
     GUI/trayicon.h \

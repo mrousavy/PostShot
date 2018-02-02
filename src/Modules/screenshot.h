@@ -18,7 +18,7 @@ namespace Screenshot
     /*!
      * \brief getScreenshotFull Get a Screenshot from all desktops
      */
-    QPixmap* getScreenshotFull();
+    QPixmap getScreenshotFull();
 
     /*!
      * \brief getScreenshotPrimary Get a Screenshot from the Primary Screen
