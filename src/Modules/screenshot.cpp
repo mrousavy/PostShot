@@ -11,7 +11,7 @@ QPixmap Screenshot::getScreenshot(int fromX, int fromY, int toX, int toY)
 {
     QScreen *screen = QGuiApplication::primaryScreen();
     if (!screen)
-        throw std::exception("Could not get primary screen!");
+        throw std::runtime_error("Could not get primary screen!");
 
     return screen->grabWindow(0);
 }
@@ -20,20 +20,20 @@ QPixmap Screenshot::getScreenshotFull()
 {
     auto screens = QGuiApplication::screens();
     if (screens.length() < 1)
-        throw std::exception("No screens were found!");
+        throw std::runtime_error("No screens were found!");
 
     QRect rect = ScreenManager::getVirtualDesktop();
 
-    int offsetX = - rect.left(); // e.g. -1920 if screen#2 is left of #1
-    int offsetY = - rect.top();
+    int offsetX = -rect.left(); // e.g. -1920 if screen#2 is left of #1
+    int offsetY = -rect.top();
 
     QPixmap final(rect.width(), rect.height());
     final.fill(Qt::transparent);
     QPainter painter(&final);
 
-    foreach (QScreen* screen, screens)
+    for (QScreen* screen : screens)
     {
-        QRect position = screen->availableGeometry();
+        QRect position = screen->geometry();
         position.setLeft(position.left() + offsetX);
         position.setTop(position.top() + offsetY);
         position.setRight(position.right() + offsetX);
