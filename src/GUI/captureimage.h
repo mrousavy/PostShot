@@ -2,21 +2,27 @@
 #define CAPTUREIMAGE_H
 
 #include <QWidget>
+#include <QMainWindow>
+#include <QPixmap>
+#include <QLabel>
 
-class CaptureImage : public QWidget
+class CaptureImage : public QMainWindow
 {
     Q_OBJECT
 public:
     /*!
      * \brief fadeIn Create a new object of the Capture Image Window
      */
-    explicit CaptureImage(QWidget *parent = nullptr);
+    explicit CaptureImage(QWidget* parent = nullptr);
 
 signals:
 
 public slots:
 
 private:
+    QPixmap image;
+    QLabel* label;
+    QList<QRect> windows;
 
 protected:
     /*!

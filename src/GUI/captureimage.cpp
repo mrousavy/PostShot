@@ -9,44 +9,56 @@
 #include "GUI/captureimage.h"
 #include "Modules/screenmanager.h"
 #include "Modules/windowhelper.h"
+#include "Modules/screenshot.h"
 
-#include <QDebug>
 #include <QList>
 #include <Windows.h>
+#include <QColor>
+#include <QPalette>
 
-CaptureImage::CaptureImage(QWidget *parent)
-    : QWidget(parent, Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint)
+CaptureImage::CaptureImage(QWidget* parent)
+    : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
+      image(Screenshot::getScreenshotFull()), label(new QLabel), windows(getAllWindows())
 {
-    setAttribute(Qt::WA_NoSystemBackground);
+//    setAttribute(Qt::WA_NoSystemBackground);
     setWindowOpacity(0.0);
-
-    auto const screen(QGuiApplication::primaryScreen());
-    setGeometry(screen->availableVirtualGeometry()); // Make fullscreen
 
     installEventFilter(this); // Key press handler
 
     setGeometry(ScreenManager::getVirtualDesktop()); // span across all screens
+
+//    label->setBackgroundRole(QPalette::Base);
+//    label->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+//    label->setScaledContents(true);
+//    label->setAttribute(Qt::WA_TranslucentBackground);
+    label->setPixmap(image);
+
+    // TODO: SET LABEL TRANSPARENT FOR OPACITY ANIMATION
+
+//    QPalette palette = label->palette();
+//    QColor color = palette.color(QPalette::Window);
+//    color.setAlpha(130);
+//    palette.setColor(QPalette::Text, color);
+//    label->setPalette(palette);
+
+    setCentralWidget(label);
+
+
     show();
     activateWindow();
-    Animation::fade(this, 200, 0.0, 0.3); // fade in
-
-    QList<QRect> windows = getAllWindows();
-    foreach (auto window, windows)
-    {
-        qDebug() << window.height() << "\n";
-    }
+    Animation::fade(this, 200, 0.0, 0.4); // fade in
 }
 
 
 bool CaptureImage::eventFilter(QObject* obj, QEvent* event)
 {
-    if (event->type()==QEvent::KeyPress)
+    if (event->type() == QEvent::KeyPress)
     {
         QKeyEvent* key = static_cast<QKeyEvent*>(event);
-        if ((key->key()==Qt::Key_Escape))
+        if ((key->key() == Qt::Key_Escape))
         {
             std::function<bool(void)> func = std::bind(&CaptureImage::close, this);
-            Animation::fade(this, 200, 0.3, 0.0, &func);
+            Animation::fade(this, 200, 0.4, 0.0, &func);
             return true;
         }
     }
