@@ -4,5 +4,4 @@
 
 UGlobalHotkeys* hotkeyManager;
 
-
 #endif // GLOBALS_H

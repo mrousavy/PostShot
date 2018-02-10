@@ -8,12 +8,12 @@
 
 #include "GUI/animation.h"
 #include "Modules/screenmanager.h"
+#include "Modules/imagemanipulation.h"
 #include "Modules/windowhelper.h"
 #include "Modules/screenshot.h"
 
 #include <QDebug>
 #include <QGraphicsRectItem>
-#include <QPoint>
 
 CaptureImage::CaptureImage(QWidget* parent)
     : QWidget(parent, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
@@ -21,20 +21,23 @@ CaptureImage::CaptureImage(QWidget* parent)
       layout(new QVBoxLayout(this)), rect(scene->addRect(0, 0, 0, 0)),
       image(Screenshot::getScreenshotFull()), windows(Helper::getAllWindows())
 {
+    // Window Metadata
     setWindowOpacity(0.0);
     setMouseTracking(true);
+    setGeometry(ScreenManager::getVirtualDesktop()); // span across all screens
 
+    // Events setup
     installEventFilter(this); // Handle Keys
     scene->installEventFilter(this); // Handle Mouse
 
-    setGeometry(ScreenManager::getVirtualDesktop()); // span across all screens
-
+    // QGraphicsScene setup
     auto pmitem = scene->addPixmap(this->image);
     rect->setZValue(pmitem->zValue() + 1);
     rect->setBrush(Qt::gray);
     rect->setPen(QPen(Qt::black));
     rect->setOpacity(0.4);
 
+    // QGraphicsView setup
     //view->setBackgroundBrush(this->image);
     view->setFrameStyle(QFrame::NoFrame); // Disable ~1px borders
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -42,10 +45,12 @@ CaptureImage::CaptureImage(QWidget* parent)
     view->setCacheMode(QGraphicsView::CacheBackground);
     view->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
+    // Layout setup
     layout->setContentsMargins(0,0,0,0);
     layout->addWidget(view);
     setLayout(layout);
 
+    // Window opening
     show();
     activateWindow();
     setCursor(Qt::CrossCursor);
@@ -84,30 +89,18 @@ bool CaptureImage::onMouseDown(QMouseEvent* event)
     return true;
 }
 
-bool CaptureImage::onMouseMove(QMouseEvent* event)
+bool CaptureImage::onMouseMove(QMouseEvent*)
 {
-    QPoint pos = mapFromGlobal(QCursor::pos());
-    qDebug() << pos;
-
-    capture.setBottomRight(pos);
-
-//    QPoint tl = capture.topLeft();
-//    QPoint br = capture.bottomRight();
-//    if (br.x() < tl.x())
-//    {
-//        tl.setX(br);
-//        capture.setTopLeft(br);
-//        capture.setBottomRight(tl);
-//    }
-
+    capture.setBottomRight(mapFromGlobal(QCursor::pos()));
     rect->setRect(capture);
-    //scene->addRect(capture, QPen(), Qt::SolidPattern);
     return true;
 }
 
-bool CaptureImage::onMouseUp(QMouseEvent* event)
+bool CaptureImage::onMouseUp(QMouseEvent*)
 {
-    // TODO: Crop!
+    QPixmap cropped = image.copy(capture);
+    ImageManipulation::saveImage(cropped);
+    close();
     return true;
 }
 
