@@ -5,7 +5,9 @@
 #include <QtCore>
 #include <QDebug>
 
-// Ignore {0,0,0,0} windows
+// Ignore windows without titles
+#define IGNORE_HIDDEN
+// Ignore windows with {0,0,0,0} coords
 #define IGNORE_NULLS
 
 namespace Helper {
@@ -17,32 +19,38 @@ struct Window
 {
     QRect rect;
     int z;
+    TCHAR name[256];
 };
 
+// Z Index counter
 static int currz;
 
 inline BOOL CALLBACK enumWindowsProc(
         __in  HWND hWnd,
         __in  LPARAM lParam)
 {
-  QList<Window>* windows = reinterpret_cast<QList<Window>*>(lParam);
-  RECT rect;
-  GetWindowRect(hWnd, &rect);
-
-#ifdef IGNORE_NULLS
-  if (rect.left == 0  && rect.top == 0 &&
-      rect.right == 0 && rect.bottom == 0)
-      return TRUE;
+#ifdef IGNORE_HIDDEN
+    if (GetWindowTextLength(hWnd) == 0)
+        return TRUE;
 #endif
 
-  QRect qrect(rect.left, rect.top, rect.right, rect.bottom);
+    auto windows = reinterpret_cast<QList<Window>*>(lParam);
+    RECT rect;
+    GetWindowRect(hWnd, &rect);
 
-  Window window;
-  window.rect = qrect;
-  window.z = currz++;
-  windows->append(window);
+#ifdef IGNORE_NULLS
+    if (rect.left == 0  && rect.top == 0 &&
+        rect.right == 0 && rect.bottom == 0)
+        return TRUE;
+#endif
 
-  return TRUE;
+    Window window;
+    window.rect = QRect(rect.left, rect.top, rect.right, rect.bottom);
+    window.z = currz++;
+    GetWindowText(hWnd, window.name, sizeof(window.name));
+    windows->append(window);
+
+    return TRUE;
 }
 
 inline QList<Window> getAllWindows()
