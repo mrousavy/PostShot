@@ -54,7 +54,7 @@ CaptureImage::CaptureImage(QWidget* parent)
     show();
     activateWindow();
     setCursor(Qt::CrossCursor);
-    Animation::fade(this, 200, 0.0, 1.0); // fade in
+    Animation::fade(this, 200, 0.0, 0.4); // fade in
 }
 
 
