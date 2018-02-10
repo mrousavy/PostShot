@@ -43,9 +43,9 @@ CaptureImage::CaptureImage(QWidget* parent)
 
     setCentralWidget(label);
 
-
     show();
     activateWindow();
+    QApplication::setOverrideCursor(Qt::CrossCursor);
     Animation::fade(this, 200, 0.0, 0.4); // fade in
 }
 
@@ -57,7 +57,8 @@ bool CaptureImage::eventFilter(QObject* obj, QEvent* event)
         QKeyEvent* key = static_cast<QKeyEvent*>(event);
         if ((key->key() == Qt::Key_Escape))
         {
-            std::function<bool(void)> func = std::bind(&CaptureImage::close, this);
+            QApplication::restoreOverrideCursor();
+            auto func = std::bind(&CaptureImage::close, this);
             Animation::fade(this, 200, 0.4, 0.0, &func);
             return true;
         }
