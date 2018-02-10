@@ -1,60 +1,52 @@
-#include <QApplication>
-#include <QWidget>
-#include <QScreen>
+#include "GUI/captureimage.h"
+
 #include <QKeyEvent>
-#include <QWindow>
 #include <functional>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QVBoxLayout>
 
 #include "GUI/animation.h"
-#include "GUI/captureimage.h"
 #include "Modules/screenmanager.h"
 #include "Modules/windowhelper.h"
 #include "Modules/screenshot.h"
 
-#include <QList>
-#include <Windows.h>
-#include <QColor>
-#include <QPalette>
-
-#include <QGraphicsScene>
-#include <QGraphicsView>
+#include <QDebug>
 
 CaptureImage::CaptureImage(QWidget* parent)
-    : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
+    : QWidget(parent, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
       scene(new QGraphicsScene), view(new QGraphicsView(scene, this)),
-      image(Screenshot::getScreenshotFull()), label(new QLabel), windows(Helper::getAllWindows())
+      layout(new QVBoxLayout(this)),
+      image(Screenshot::getScreenshotFull()), windows(Helper::getAllWindows())
 {
-//    setAttribute(Qt::WA_NoSystemBackground);
     setWindowOpacity(0.0);
 
     installEventFilter(this); // Key press handler
 
     setGeometry(ScreenManager::getVirtualDesktop()); // span across all screens
 
-//    label->setBackgroundRole(QPalette::Base);
-//    label->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-//    label->setScaledContents(true);
-//    label->setAttribute(Qt::WA_TranslucentBackground);
-    label->setPixmap(image);
-
-    // TODO: SET LABEL TRANSPARENT FOR OPACITY ANIMATION
-
-//    QPalette palette = label->palette();
-//    QColor color = palette.color(QPalette::Window);
-//    color.setAlpha(130);
-//    palette.setColor(QPalette::Text, color);
-//    label->setPalette(palette);
-
-    scene->addPixmap(Screenshot::getScreenshotFull());
+    scene->addPixmap(this->image);
+    //view->setBackgroundBrush(this->image);
     view->setFrameStyle(QFrame::NoFrame); // Disable ~1px borders
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setCacheMode(QGraphicsView::CacheBackground);
 
-    setCentralWidget(view);
+    layout->setContentsMargins(0,0,0,0);
+    layout->addWidget(view);
+    setLayout(layout);
+
     show();
     activateWindow();
     setCursor(Qt::CrossCursor);
     Animation::fade(this, 200, 0.0, 0.4); // fade in
+}
+
+CaptureImage::~CaptureImage()
+{
+    delete scene;
+    delete view;
+    delete layout;
 }
 
 
@@ -62,7 +54,7 @@ bool CaptureImage::eventFilter(QObject* obj, QEvent* event)
 {
     if (event->type() == QEvent::KeyPress)
     {
-        QKeyEvent* key = static_cast<QKeyEvent*>(event);
+        auto key = static_cast<QKeyEvent*>(event);
         if ((key->key() == Qt::Key_Escape))
         {
             auto func = std::bind(&CaptureImage::close, this);
