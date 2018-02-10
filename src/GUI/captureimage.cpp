@@ -46,14 +46,11 @@ CaptureImage::CaptureImage(QWidget* parent)
 //    label->setPalette(palette);
 
     scene->addPixmap(Screenshot::getScreenshotFull());
-    scene->setBackgroundBrush(Qt::red);
+    view->setFrameStyle(0); // Disable ~1px borders
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->show();
-    view->setBackgroundBrush(Qt::red);
 
     setCentralWidget(view);
-
     show();
     activateWindow();
     setCursor(Qt::CrossCursor);
