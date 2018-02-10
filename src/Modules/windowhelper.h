@@ -12,7 +12,8 @@
 // Ignore windows without titles
 #define IGNORE_NOTITLE
 
-namespace Helper {
+namespace Helper
+{
 
 #if defined(Q_OS_WIN)
 #include <Windows.h>
