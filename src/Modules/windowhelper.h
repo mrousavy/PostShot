@@ -5,10 +5,12 @@
 #include <QtCore>
 #include <QDebug>
 
-// Ignore windows without titles
+// Ignore hidden windows
 #define IGNORE_HIDDEN
 // Ignore windows with {0,0,0,0} coords
-#define IGNORE_NULLS
+//#define IGNORE_NULLS
+// Ignore windows without titles
+#define IGNORE_NOTITLE
 
 namespace Helper {
 
@@ -30,6 +32,10 @@ inline BOOL CALLBACK enumWindowsProc(
         __in  LPARAM lParam)
 {
 #ifdef IGNORE_HIDDEN
+    if (!IsWindowVisible(hWnd))
+        return TRUE;
+#endif
+#ifdef IGNORE_NOTITLE
     if (GetWindowTextLength(hWnd) == 0)
         return TRUE;
 #endif
