@@ -16,8 +16,12 @@
 #include <QColor>
 #include <QPalette>
 
+#include <QGraphicsScene>
+#include <QGraphicsView>
+
 CaptureImage::CaptureImage(QWidget* parent)
     : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
+      scene(new QGraphicsScene), view(new QGraphicsView(scene, this)),
       image(Screenshot::getScreenshotFull()), label(new QLabel), windows(Helper::getAllWindows())
 {
 //    setAttribute(Qt::WA_NoSystemBackground);
@@ -41,12 +45,19 @@ CaptureImage::CaptureImage(QWidget* parent)
 //    palette.setColor(QPalette::Text, color);
 //    label->setPalette(palette);
 
-    setCentralWidget(label);
+    scene->addPixmap(Screenshot::getScreenshotFull());
+    scene->setBackgroundBrush(Qt::red);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->show();
+    view->setBackgroundBrush(Qt::red);
+
+    setCentralWidget(view);
 
     show();
     activateWindow();
     QApplication::setOverrideCursor(Qt::CrossCursor);
-    Animation::fade(this, 200, 0.0, 0.4); // fade in
+    Animation::fade(this, 200, 0.0, 1.0); // fade in
 }
 
 
