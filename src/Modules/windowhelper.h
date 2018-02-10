@@ -5,27 +5,50 @@
 #include <QtCore>
 #include <QDebug>
 
+// Ignore {0,0,0,0} windows
+#define IGNORE_NULLS
+
+namespace Helper {
+
 #if defined(Q_OS_WIN)
 #include <Windows.h>
 
-BOOL CALLBACK enumWindowsProc(
+struct Window
+{
+    QRect rect;
+    int z;
+};
+
+static int currz;
+
+inline BOOL CALLBACK enumWindowsProc(
         __in  HWND hWnd,
         __in  LPARAM lParam)
 {
-  QList<QRect>* windows = reinterpret_cast<QList<QRect>*>(lParam);
+  QList<Window>* windows = reinterpret_cast<QList<Window>*>(lParam);
   RECT rect;
   GetWindowRect(hWnd, &rect);
 
-  QRect qrect;
-  qrect.setCoords(rect.left, rect.top, rect.right, rect.bottom);
-  windows->append(qrect);
+#ifdef IGNORE_NULLS
+  if (rect.left == 0  && rect.top == 0 &&
+      rect.right == 0 && rect.bottom == 0)
+      return TRUE;
+#endif
+
+  QRect qrect(rect.left, rect.top, rect.right, rect.bottom);
+
+  Window window;
+  window.rect = qrect;
+  window.z = currz++;
+  windows->append(window);
 
   return TRUE;
 }
 
-QList<QRect> getAllWindows()
+inline QList<Window> getAllWindows()
 {
-    QList<QRect> windows;
+    currz = 0;
+    QList<Window> windows;
     BOOL success = EnumWindows(enumWindowsProc, reinterpret_cast<LPARAM>(&windows));
     if (!success) throw std::exception("Could not enumerate windows!");
     return windows;
@@ -72,5 +95,7 @@ QList<QRect> getAllWindows()
     return windows;
 }
 #endif
+
+}
 
 #endif // WINDOWHELPER_H

@@ -18,7 +18,7 @@
 
 CaptureImage::CaptureImage(QWidget* parent)
     : QMainWindow(parent, Qt::Window | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
-      image(Screenshot::getScreenshotFull()), label(new QLabel), windows(getAllWindows())
+      image(Screenshot::getScreenshotFull()), label(new QLabel), windows(Helper::getAllWindows())
 {
 //    setAttribute(Qt::WA_NoSystemBackground);
     setWindowOpacity(0.0);

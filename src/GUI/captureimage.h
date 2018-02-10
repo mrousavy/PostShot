@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QPixmap>
 #include <QLabel>
+#include "Modules/windowhelper.h"
 
 class CaptureImage : public QMainWindow
 {
@@ -22,7 +23,7 @@ public slots:
 private:
     QPixmap image;
     QLabel* label;
-    QList<QRect> windows;
+    QList<Helper::Window> windows;
 
 protected:
     /*!
