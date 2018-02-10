@@ -6,6 +6,7 @@
 #include "Modules/imagemanipulation.h"
 #include "GUI/captureimage.h"
 #include "GUI/settingswindow.h"
+#include "GUI/helpwindow.h"
 
 TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
  : QObject(parent), _app(app)
@@ -94,7 +95,7 @@ void TrayIcon::loadMenu()
 
 void TrayIcon::cbHelp()
 {
-    printf("Help clicked.");
+    (new HelpWindow)->show();
 }
 
 void TrayIcon::cbImage()
@@ -104,6 +105,7 @@ void TrayIcon::cbImage()
 
 void TrayIcon::cbGif()
 {
+    // TODO: GIF Click
     printf("GIF clicked.");
     auto pixmap = Screenshot::getScreenshotFull();
     ImageManipulation::saveImage(pixmap);
@@ -111,8 +113,7 @@ void TrayIcon::cbGif()
 
 void TrayIcon::cbSettings()
 {
-    SettingsWindow* window = new SettingsWindow();
-    window->show();
+    (new SettingsWindow)->show();
 }
 
 void TrayIcon::cbExit()

@@ -46,7 +46,7 @@ CaptureImage::CaptureImage(QWidget* parent)
 //    label->setPalette(palette);
 
     scene->addPixmap(Screenshot::getScreenshotFull());
-    view->setFrameStyle(0); // Disable ~1px borders
+    view->setFrameStyle(QFrame::NoFrame); // Disable ~1px borders
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
