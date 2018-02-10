@@ -7,6 +7,9 @@
 #include <QLabel>
 #include "Modules/windowhelper.h"
 
+#include <QGraphicsScene>
+#include <QGraphicsView>
+
 class CaptureImage : public QMainWindow
 {
     Q_OBJECT
@@ -21,6 +24,8 @@ signals:
 public slots:
 
 private:
+    QGraphicsScene* scene;
+    QGraphicsView* view;
     QPixmap image;
     QLabel* label;
     QList<Helper::Window> windows;

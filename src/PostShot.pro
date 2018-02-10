@@ -38,7 +38,8 @@ SOURCES += \
     GUI/trayicon.cpp \
     Modules/imagemanipulation.cpp \
     Modules/screenshot.cpp \
-    GUI/captureimage.cpp
+    GUI/captureimage.cpp \
+    GUI/helpwindow.cpp
 
 HEADERS += \
     globals.h \
@@ -49,13 +50,15 @@ HEADERS += \
     GUI/captureimage.h \
     GUI/animation.h \
     Modules/screenmanager.h \
-    Modules/windowhelper.h
+    Modules/windowhelper.h \
+    GUI/helpwindow.h
 
 RESOURCES += \
     resources.qrc
 
 FORMS += \
-    GUI/settingswindow.ui
+    GUI/settingswindow.ui \
+    GUI/helpwindow.ui
 
 DISTFILES += \
     UGlobalHotkeys/uglobalhotkey.pri \
