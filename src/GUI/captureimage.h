@@ -14,7 +14,7 @@ class CaptureImage : public QWidget
     Q_OBJECT
 public:
     /*!
-     * \brief fadeIn Create a new object of the Capture Image Window
+     * Create a new object of the Capture Image Window
      */
     explicit CaptureImage(QWidget* parent = nullptr);
     ~CaptureImage();
@@ -27,12 +27,22 @@ private:
     QGraphicsScene* scene;
     QGraphicsView* view;
     QLayout* layout;
+    QGraphicsRectItem* rect;
     QPixmap image;
     QList<Helper::Window> windows;
+    QRect capture;
+
+private:
+    void close();
+
+    bool onKeyDown(QEvent* event);
+    bool onMouseMove(QMouseEvent* event);
+    bool onMouseDown(QMouseEvent* event);
+    bool onMouseUp(QMouseEvent* event);
 
 protected:
     /*!
-     * \brief eventFilter Qt event handler (key press)
+     * Qt event handler (key press)
      */
     bool eventFilter(QObject* obj, QEvent* event);
 };
