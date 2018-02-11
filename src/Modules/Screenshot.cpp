@@ -1,10 +1,10 @@
-#include "screenshot.h"
+#include "Screenshot.h"
 
 #include <QtCore>
 #include <QtWidgets>
 #include <QList>
 
-#include "Modules/screenmanager.h"
+#include "Modules/Screenmanager.h"
 
 
 QPixmap Screenshot::getScreenshot(int fromX, int fromY, int toX, int toY)

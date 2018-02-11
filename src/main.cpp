@@ -3,8 +3,8 @@
 #include <QMessageBox>
 
 #include "globals.h"
-#include "GUI/captureimage.h"
-#include "GUI/trayicon.h"
+#include "GUI/CaptureImage.h"
+#include "GUI/TrayIcon.h"
 
 
 int main(int argc, char *argv[])

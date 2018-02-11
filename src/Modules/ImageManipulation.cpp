@@ -1,4 +1,4 @@
-#include "imagemanipulation.h"
+#include "ImageManipulation.h"
 #include <QtCore>
 #include <QWidget>
 #include <QFileDialog>

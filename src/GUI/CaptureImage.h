@@ -6,7 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
-#include "Modules/windowhelper.h"
+#include "Modules/WindowHelper.h"
 
 
 class CaptureImage : public QWidget

@@ -1,4 +1,4 @@
-#include "helpwindow.h"
+#include "HelpWindow.h"
 #include "ui_helpwindow.h"
 
 HelpWindow::HelpWindow(QWidget *parent) :

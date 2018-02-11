@@ -1,4 +1,5 @@
 #include <QtCore>
+#pragma warning(disable : 4267)
 
 #if defined(Q_OS_WIN)
 #include <Windows.h>

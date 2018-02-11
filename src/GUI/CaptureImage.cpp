@@ -1,4 +1,4 @@
-#include "GUI/captureimage.h"
+#include "GUI/CaptureImage.h"
 
 #include <QKeyEvent>
 #include <functional>
@@ -6,11 +6,11 @@
 #include <QGraphicsView>
 #include <QVBoxLayout>
 
-#include "GUI/animation.h"
-#include "Modules/screenmanager.h"
-#include "Modules/imagemanipulation.h"
-#include "Modules/windowhelper.h"
-#include "Modules/screenshot.h"
+#include "GUI/Animation.h"
+#include "Modules/Screenmanager.h"
+#include "Modules/ImageManipulation.h"
+#include "Modules/WindowHelper.h"
+#include "Modules/Screenshot.h"
 
 #include <QDebug>
 #include <QGraphicsRectItem>

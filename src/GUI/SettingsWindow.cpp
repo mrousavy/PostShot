@@ -1,4 +1,4 @@
-#include "settingswindow.h"
+#include "SettingsWindow.h"
 #include "ui_settingswindow.h"
 
 SettingsWindow::SettingsWindow(QWidget *parent) :
