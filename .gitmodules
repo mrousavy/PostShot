@@ -1,0 +1,3 @@
+[submodule "QHotkeys"]
+	path = QHotkeys
+	url = https://github.com/mrousavy/QHotkeys
