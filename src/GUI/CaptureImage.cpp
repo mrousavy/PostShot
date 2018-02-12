@@ -15,6 +15,8 @@
 #include <QDebug>
 #include <QGraphicsRectItem>
 
+#define OPACITY 1.0
+
 CaptureImage::CaptureImage(QWidget* parent)
     : QWidget(parent, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
       scene(new QGraphicsScene), view(new QGraphicsView(scene, this)),
@@ -65,13 +67,13 @@ void CaptureImage::show()
 {
     QWidget::show();
     activateWindow();
-    Animation::fade(this, 200, 0.0, 0.4); // fade in
+    Animation::fade(this, 200, 0.0, OPACITY); // fade in
 }
 
 void CaptureImage::close()
 {
     auto func = std::bind(&QWidget::close, this);
-    Animation::fade(this, 200, 0.4, 0.0, &func);
+    Animation::fade(this, 200, OPACITY, 0.0, &func);
 }
 
 bool CaptureImage::onKeyDown(QEvent* event)

@@ -77,7 +77,7 @@ void TrayIcon::loadMenu()
     actionImage->setShortcut(QKeySequence("Ctrl+Shift+I"));
     connect(actionImage, &QAction::triggered, this, &TrayIcon::cbImage);
     actionGif = new QAction(icGif, tr("GIF"));
-    actionImage->setShortcut(QKeySequence("Ctrl+Shift+G"));
+    actionGif->setShortcut(QKeySequence("Ctrl+Shift+H"));
     connect(actionGif, &QAction::triggered, this, &TrayIcon::cbGif);
     actionSettings = new QAction(icSettings, tr("Settings"));
     connect(actionSettings, &QAction::triggered, this, &TrayIcon::cbSettings);
