@@ -19,6 +19,12 @@ public:
     explicit CaptureImage(QWidget* parent = nullptr);
     ~CaptureImage();
 
+    void showNormal() = delete;
+    void showMinimized() = delete;
+    void showMaximized() = delete;
+    void showFullScreen() = delete;
+    void show();
+    void close();
 signals:
 
 public slots:
@@ -33,8 +39,6 @@ private:
     QRect capture;
 
 private:
-    void close();
-
     bool onKeyDown(QEvent* event);
     bool onMouseMove(QMouseEvent* event);
     bool onMouseDown(QMouseEvent* event);

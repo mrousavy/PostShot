@@ -50,11 +50,7 @@ CaptureImage::CaptureImage(QWidget* parent)
     layout->addWidget(view);
     setLayout(layout);
 
-    // Window opening
-    show();
-    activateWindow();
     setCursor(Qt::CrossCursor);
-    Animation::fade(this, 200, 0.0, 0.4); // fade in
 }
 
 CaptureImage::~CaptureImage()
@@ -63,6 +59,13 @@ CaptureImage::~CaptureImage()
     delete view;
     delete layout;
     delete rect;
+}
+
+void CaptureImage::show()
+{
+    QWidget::show();
+    activateWindow();
+    Animation::fade(this, 200, 0.0, 0.4); // fade in
 }
 
 void CaptureImage::close()

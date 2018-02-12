@@ -74,8 +74,10 @@ void TrayIcon::loadMenu()
     actionHelp = new QAction(icHelp, tr("Help"));
     connect(actionHelp, &QAction::triggered, this, &TrayIcon::cbHelp);
     actionImage = new QAction(icImage, tr("Image"));
+    actionImage->setShortcut(QKeySequence("Ctrl+Shift+I"));
     connect(actionImage, &QAction::triggered, this, &TrayIcon::cbImage);
     actionGif = new QAction(icGif, tr("GIF"));
+    actionImage->setShortcut(QKeySequence("Ctrl+Shift+G"));
     connect(actionGif, &QAction::triggered, this, &TrayIcon::cbGif);
     actionSettings = new QAction(icSettings, tr("Settings"));
     connect(actionSettings, &QAction::triggered, this, &TrayIcon::cbSettings);
@@ -100,7 +102,7 @@ void TrayIcon::cbHelp()
 
 void TrayIcon::cbImage()
 {
-    new CaptureImage();
+    (new CaptureImage)->show();
 }
 
 void TrayIcon::cbGif()
@@ -108,7 +110,7 @@ void TrayIcon::cbGif()
     // TODO: GIF Click
     printf("GIF clicked.");
     auto pixmap = Screenshot::getScreenshotFull();
-    ImageManipulation::saveImage(pixmap);
+    ImageManipulation::chooseSaveImage(pixmap);
 }
 
 void TrayIcon::cbSettings()

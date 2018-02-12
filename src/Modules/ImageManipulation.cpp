@@ -7,7 +7,7 @@
 
 namespace ImageManipulation
 {
-    void saveImage(const QPixmap& pixelmap)
+    void chooseSaveImage(const QPixmap& pixelmap)
     {
         const QString format = "png";
         QString initialPath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);

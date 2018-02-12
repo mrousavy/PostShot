@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     hotkeyManager->registerHotkey("Ctrl+Shift+I");
     QObject::connect(hotkeyManager, &UGlobalHotkeys::activated, [=]()
     {
-        new CaptureImage();
+        (new CaptureImage)->show();
     });
 
     // Register resources
