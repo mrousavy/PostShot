@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QResource>
 #include <QMessageBox>
+#include <QObject>
 
 #include <qhotkey.h>
 #include "GUI/CaptureImage.h"
@@ -26,7 +27,10 @@ int main(int argc, char *argv[])
 
     // Register hotkeys
     qDebug() << "registering";
-    Qt::QHotkey imageHotkey(Qt::ModifierKey::Control, Qt::Key_I, nullptr, imageCallback);
+    Qt::QHotkey imageHotkey(Qt::ModifierKey::Control | Qt::ModifierKey::Shift, Qt::Key_I);
+    Qt::QHotkey gifHotkey(Qt::ModifierKey::Control | Qt::ModifierKey::Shift, Qt::Key_H);
+    QObject::connect(&imageHotkey, &Qt::QHotkey::pressed, &imageCallback);
+    QObject::connect(&gifHotkey, &Qt::QHotkey::pressed, &gifCallback);
     qDebug() << "registered.";
     //Qt::QHotkey gifHotkey(Qt::ModifierKey::Control, Qt::Key_H, [](const Qt::QHotkey&) { (new CaptureImage)->show(); });
 

@@ -16,7 +16,9 @@ INCLUDEPATH += src/ \
          QHotkeys/src/
 
 # QHotkeys stuff
-include(QHotkeys.pri)
+!include(QHotkeys/QHotkeys.pri) {
+    error("Could not find QHotkeys project!")
+}
 
 SOURCES += \
     src/main.cpp \
