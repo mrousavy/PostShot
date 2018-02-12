@@ -33,8 +33,9 @@
 You can help implementing more **features**, fix [issues](https://github.com/mrousavy/PostShot/issues) or **improve design choices**.
 
 ```sh
-git clone https://github.com/mrousavy/PostShot
+git clone https://github.com/mrousavy/PostShot --recursive
 cd PostShot
+# Run to update QHotkeys library
 git submodule update --remote
 qt-creator PostShot.pro
 ```
