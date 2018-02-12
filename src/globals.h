@@ -1,7 +1,7 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
-#include "QHotkeys/uglobalhotkeys.h"
+#include <qhotkey.h>
 
-UGlobalHotkeys* hotkeyManager;
+Qt::QHotkey imageHotkey;
 
 #endif // GLOBALS_H

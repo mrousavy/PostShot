@@ -2,25 +2,33 @@
 #include <QResource>
 #include <QMessageBox>
 
-#include "globals.h"
+#include <qhotkey.h>
 #include "GUI/CaptureImage.h"
 #include "GUI/TrayIcon.h"
 
+#include <QDebug>
+
+void imageCallback(const Qt::QHotkey&)
+{
+    qDebug() << "Image!";
+    (new CaptureImage)->show();
+}
+void gifCallback(const Qt::QHotkey&)
+{
+    qDebug() << "GIF!";
+}
 
 int main(int argc, char *argv[])
 {
     // Create the application
     QApplication app(argc, argv);
     app.setQuitOnLastWindowClosed(false);
-    UGlobalHotkeys hk;
-    hotkeyManager = &hk;
 
-    // Register Image hotkey
-    hotkeyManager->registerHotkey("Ctrl+Shift+I");
-    QObject::connect(hotkeyManager, &UGlobalHotkeys::activated, [=]()
-    {
-        (new CaptureImage)->show();
-    });
+    // Register hotkeys
+    qDebug() << "registering";
+    Qt::QHotkey imageHotkey(Qt::ModifierKey::Control, Qt::Key_I, nullptr, imageCallback);
+    qDebug() << "registered.";
+    //Qt::QHotkey gifHotkey(Qt::ModifierKey::Control, Qt::Key_H, [](const Qt::QHotkey&) { (new CaptureImage)->show(); });
 
     // Register resources
     QResource::registerResource("../res/camera-icon.png");

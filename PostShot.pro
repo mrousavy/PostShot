@@ -10,8 +10,10 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 
 
-DEPENDPATH += src/
-INCLUDEPATH += src/
+DEPENDPATH += src/ \
+         QHotkeys/src/
+INCLUDEPATH += src/ \
+         QHotkeys/src/
 
 # QHotkeys stuff
 include(QHotkeys.pri)
