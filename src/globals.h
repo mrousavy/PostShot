@@ -1,6 +1,6 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
-#include "UGlobalHotkeys/uglobalhotkeys.h"
+#include "QHotkeys/uglobalhotkeys.h"
 
 UGlobalHotkeys* hotkeyManager;
 
