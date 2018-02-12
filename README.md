@@ -3,8 +3,8 @@
   <h3 align="center">PostShot</h3>
   <blockquote align="center">The faster screenshot tool</blockquote>
   <p align="center">
-    <a href="todo:download-url"><img src="https://img.shields.io/badge/Download-Setup-brightgreen.svg" alt="Download"></a>
-    <a href="releases"><img src="https://img.shields.io/github/downloads/mrousavy/PostShot/total.svg" alt="Total downloads"></a>
+    <a href="https://github.com/mrousavy/PostShot/releases/latest"><img src="https://img.shields.io/badge/Download-Setup-brightgreen.svg" alt="Download"></a>
+    <a href="https://github.com/mrousavy/PostShot/releases"><img src="https://img.shields.io/github/downloads/mrousavy/PostShot/total.svg" alt="Total downloads"></a>
   </p>
 </p>
 
@@ -28,8 +28,9 @@
 
 # Contribute
 
-**PostShot** is an open source community project, contributions and pull requests are welcome!
-You can help implementing more features, fix [issues](https://github.com/mrousavy/PostShot/issues) or improve design choices.
+**PostShot** is an open source community project, **contributions and pull requests are welcome!**
+
+You can help implementing more **features**, fix [issues](https://github.com/mrousavy/PostShot/issues) or **improve design choices**.
 
 ```sh
 git clone https://github.com/mrousavy/PostShot

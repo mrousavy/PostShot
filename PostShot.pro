@@ -14,7 +14,7 @@ DEPENDPATH += src/
 INCLUDEPATH += src/
 
 # QHotkeys stuff
-include(QHotkeys/QHotkeys.pri)
+include(QHotkeys.pri)
 
 SOURCES += \
     src/main.cpp \
