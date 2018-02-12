@@ -5,7 +5,10 @@
 
 namespace ImageManipulation
 {
-    void saveImage(QPixmap& pixelmap);
+void saveImage(const QPixmap& pixelmap);
+void quickSaveImage(const QPixmap& pixelmap);
+bool fileExists(const QString& path);
+QString desktopFolder();
 }
 
 #endif // IMAGEMANIPULATION_H

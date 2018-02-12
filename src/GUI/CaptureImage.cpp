@@ -99,7 +99,7 @@ bool CaptureImage::onMouseMove(QMouseEvent*)
 bool CaptureImage::onMouseUp(QMouseEvent*)
 {
     QPixmap cropped = image.copy(capture);
-    ImageManipulation::saveImage(cropped);
+    ImageManipulation::quickSaveImage(cropped);
     close();
     return true;
 }

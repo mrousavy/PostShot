@@ -5,10 +5,9 @@
 #include <QMessageBox>
 #include <QImageWriter>
 
-
 namespace ImageManipulation
 {
-    void saveImage(QPixmap& pixelmap)
+    void saveImage(const QPixmap& pixelmap)
     {
         const QString format = "png";
         QString initialPath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
@@ -28,10 +27,41 @@ namespace ImageManipulation
         fileDialog.setDefaultSuffix(format);
         if (fileDialog.exec() != QDialog::Accepted)
             return;
-        const QString fileName = fileDialog.selectedFiles().first();
-        if (!pixelmap.save(fileName)) {
-            QMessageBox::warning(NULL, QObject::tr("Save Error"), QObject::tr("The image could not be saved to \"%1\".")
-                                 .arg(QDir::toNativeSeparators(fileName)));
+        const QString filename = fileDialog.selectedFiles().first();
+        if (!pixelmap.save(filename)) {
+            QMessageBox::critical(NULL, QObject::tr("Save Error"),
+                                  QObject::tr("The image could not be saved to \"%1\".")
+                                  .arg(QDir::toNativeSeparators(filename)));
+        }
+    }
+
+    bool fileExists(const QString& path)
+    {
+        const QFileInfo check_file(path);
+        return check_file.exists() && check_file.isFile();
+    }
+
+    QString desktopFolder()
+    {
+        auto path = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+        return path.isEmpty() ? "." : path;
+    }
+
+    QString quickPath(const int number = 0)
+    {
+        return desktopFolder() + "/Screenshot" + QString::number(number) + ".png";
+    }
+
+    void quickSaveImage(const QPixmap& pixelmap)
+    {
+        int i = 0;
+        for (; fileExists(quickPath(i)); i++) {}
+        QString filename = quickPath(i);
+
+        if (!pixelmap.save(filename)) {
+            QMessageBox::critical(NULL, QObject::tr("Save Error"),
+                                  QObject::tr("The image could not be saved to \"%1\".")
+                                  .arg(QDir::toNativeSeparators(filename)));
         }
     }
 }
