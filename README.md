@@ -25,3 +25,15 @@
 > TODO :)
 
 > More screenshots go here
+
+# Contribute
+
+**PostShot** is an open source community project, contributions and pull requests are welcome!
+You can help implementing more features, fix [issues](https://github.com/mrousavy/PostShot/issues) or improve design choices.
+
+```sh
+git clone https://github.com/mrousavy/PostShot
+cd PostShot
+git submodule update --remote
+qt-creator PostShot.pro
+```
