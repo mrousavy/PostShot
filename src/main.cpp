@@ -3,21 +3,21 @@
 #include <QMessageBox>
 #include <QObject>
 
-#include <qhotkey.h>
+#include <uglobalhotkeys.h>
 #include "GUI/CaptureImage.h"
 #include "GUI/TrayIcon.h"
 
 #include <QDebug>
 
-void imageCallback(const Qt::QHotkey&)
+void imageCallback(size_t)
 {
     qDebug() << "Image!";
     (new CaptureImage)->show();
 }
-void gifCallback(const Qt::QHotkey&)
-{
-    qDebug() << "GIF!";
-}
+//void gifCallback(const Qt::QHotkey&)
+//{
+//    qDebug() << "GIF!";
+//}
 
 int main(int argc, char *argv[])
 {
@@ -27,10 +27,11 @@ int main(int argc, char *argv[])
 
     // Register hotkeys
     qDebug() << "registering";
-    Qt::QHotkey imageHotkey(Qt::ModifierKey::Control | Qt::ModifierKey::Shift, Qt::Key_I);
-    Qt::QHotkey gifHotkey(Qt::ModifierKey::Control | Qt::ModifierKey::Shift, Qt::Key_H);
-    QObject::connect(&imageHotkey, &Qt::QHotkey::pressed, &imageCallback);
-    QObject::connect(&gifHotkey, &Qt::QHotkey::pressed, &gifCallback);
+
+    UGlobalHotkeys hotkey;
+    hotkey.registerHotkey("Ctrl+Shift+I");
+    QObject::connect(&hotkey, &UGlobalHotkeys::activated, &imageCallback);
+
     qDebug() << "registered.";
     //Qt::QHotkey gifHotkey(Qt::ModifierKey::Control, Qt::Key_H, [](const Qt::QHotkey&) { (new CaptureImage)->show(); });
 

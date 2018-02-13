@@ -1,3 +1,6 @@
 [submodule "QHotkeys"]
 	path = QHotkeys
 	url = https://github.com/mrousavy/QHotkeys
+[submodule "UGlobalHotkey"]
+	path = UGlobalHotkey
+	url = https://github.com/falceeffect/UGlobalHotkey
