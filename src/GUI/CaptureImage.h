@@ -38,6 +38,7 @@ private:
     QShortcut* shortcut;
     QPixmap image;
     QList<Helper::Window> windows;
+    QPoint start, end;
     QRect capture;
 
 private:

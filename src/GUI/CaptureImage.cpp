@@ -95,13 +95,13 @@ bool CaptureImage::onKeyDown(QEvent* event)
 
 bool CaptureImage::onMouseDown(QMouseEvent* event)
 {
-    capture.setTopLeft(event->pos());
+    start = event->pos();
     return true;
 }
 
 bool CaptureImage::onMouseMove(QMouseEvent*)
 {
-    capture.setBottomRight(mapFromGlobal(QCursor::pos()));
+    end = mapFromGlobal(QCursor::pos());
     updateCapture();
     return true;
 }
@@ -115,21 +115,28 @@ bool CaptureImage::onMouseUp(QMouseEvent*)
 
 void CaptureImage::updateCapture()
 {
+    capture.setLeft(min(start.x(), end.x()));
+    capture.setTop(min(start.y(), end.y()));
+    capture.setRight(max(start.x(), end.x()));
+    capture.setBottom(max(start.y(), end.y()));
     rect->setRect(capture);
 }
 
 void CaptureImage::captureFinish()
 {
+    setCursor(Qt::WaitCursor);
     QPixmap cropped = image.copy(capture);
     ImageManipulation::quickSaveImage(cropped);
+    setCursor(Qt::ArrowCursor);
     close();
 }
 
 void CaptureImage::captureAll()
 {
-    capture.setTopLeft(QPoint(0, 0));
-    capture.setBottomRight(QPoint(width(), height()));
+    start = QPoint(0, 0);
+    end = QPoint(width(), height());
     updateCapture();
+    qApp->processEvents();
     captureFinish();
 }
 
