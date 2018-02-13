@@ -26,13 +26,11 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(false);
 
     // Register hotkeys
-    qDebug() << "registering";
+    QHotkey imageHotkey(QKeySequence("Ctrl+Shift+I"), true);
+    QObject::connect(&imageHotkey, &QHotkey::activated, &imageCallback);
 
-    QHotkey hotkey(QKeySequence("Ctrl+Shift+I"), true);
-    QObject::connect(&hotkey, &QHotkey::activated, &imageCallback);
-
-    qDebug() << "registered.";
-    //Qt::QHotkey gifHotkey(Qt::ModifierKey::Control, Qt::Key_H, [](const Qt::QHotkey&) { (new CaptureImage)->show(); });
+    QHotkey gifHotkey(QKeySequence("Ctrl+Shift+H"), true);
+    QObject::connect(&gifHotkey, &QHotkey::activated, &gifCallback);
 
     // Register resources
     QResource::registerResource("../res/camera-icon.png");
