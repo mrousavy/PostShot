@@ -1,10 +1,12 @@
 #include "GUI/CaptureImage.h"
 
 #include <QKeyEvent>
-#include <functional>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QVBoxLayout>
+#include <QGraphicsRectItem>
+#include <algorithm>
+#include <functional>
 
 #include "GUI/Animation.h"
 #include "Modules/Screenmanager.h"
@@ -13,19 +15,20 @@
 #include "Modules/Screenshot.h"
 
 #include <QDebug>
-#include <QGraphicsRectItem>
 
+// Fade window opening and closing?
+//#define FADE
+// ..if yes, to/from what opacity?
 #define OPACITY 1.0
 
 CaptureImage::CaptureImage(QWidget* parent)
     : QWidget(parent, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
       scene(new QGraphicsScene), view(new QGraphicsView(scene, this)),
       layout(new QVBoxLayout(this)), rect(scene->addRect(0, 0, 0, 0)),
-      image(Screenshot::getScreenshotFull()), windows(Helper::getAllWindows()),
-      capture(0, 0, 0, 0)
+      windows(WindowHelper::getAllWindows()), capture(0, 0, 0, 0),
+      image(Screenshot::getScreenshotFull())
 {
     // Window Metadata
-    setWindowOpacity(0.0);
     setMouseTracking(true);
     setGeometry(ScreenManager::getVirtualDesktop()); // span across all screens
 
@@ -57,6 +60,13 @@ CaptureImage::CaptureImage(QWidget* parent)
     setLayout(layout);
 
     setCursor(Qt::CrossCursor);
+#ifdef FADE
+    setWindowOpacity(0.0);
+#endif
+
+    for (auto window : windows) {
+        qDebug() << window.name << window.z << window.rect;
+    }
 }
 
 CaptureImage::~CaptureImage()
@@ -72,13 +82,19 @@ void CaptureImage::show()
 {
     QWidget::show();
     activateWindow();
-    Animation::fade(this, 200, 0.0, OPACITY); // fade in
+#ifdef FADE
+    Animation::fade(this, 200, 0.0, OPACITY);
+#endif
 }
 
 void CaptureImage::close()
 {
+#ifdef FADE
     auto func = std::bind(&QWidget::close, this);
     Animation::fade(this, 200, OPACITY, 0.0, &func);
+#else
+    QWidget::close();
+#endif
 }
 
 bool CaptureImage::onKeyDown(QEvent* event)
@@ -115,6 +131,7 @@ bool CaptureImage::onMouseUp(QMouseEvent*)
 
 void CaptureImage::updateCapture()
 {
+    using namespace std;
     capture.setLeft(min(start.x(), end.x()));
     capture.setTop(min(start.y(), end.y()));
     capture.setRight(max(start.x(), end.x()));
