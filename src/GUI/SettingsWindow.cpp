@@ -1,14 +1,14 @@
-#include "SettingsWindow.h"
+﻿#include "SettingsWindow.h"
 #include "ui_settingswindow.h"
 
 SettingsWindow::SettingsWindow(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::SettingsWindow)
+	QWidget(parent),
+	ui(new Ui::SettingsWindow)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 }
 
 SettingsWindow::~SettingsWindow()
 {
-    delete ui;
+	delete ui;
 }
