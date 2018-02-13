@@ -65,7 +65,15 @@ CaptureImage::CaptureImage(QWidget* parent)
 #endif
 
     for (auto window : windows) {
-        qDebug() << window.name << window.z << window.rect;
+        QRectF rect(mapFromGlobal(window.rect.topLeft()),
+                    mapFromGlobal(window.rect.bottomRight()));
+
+        // TODO: Do we really need that? Overlays are last-z-index anyway
+        if (rect.height() + 5 < this->height() &&
+                rect.width() + 5 < this->width()) {
+            qDebug() << window.name << window.z << window.rect;
+            scene->addRect(rect, QPen(Qt::red), Qt::blue);
+        }
     }
 }
 
