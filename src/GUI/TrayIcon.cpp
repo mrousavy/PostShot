@@ -2,6 +2,7 @@
 #include <QSystemTrayIcon>
 #include <QAction>
 
+#include "globals.h"
 #include "Modules/Screenshot.h"
 #include "Modules/ImageManipulation.h"
 #include "GUI/CaptureImage.h"
@@ -74,10 +75,10 @@ void TrayIcon::loadMenu()
     actionHelp = new QAction(icHelp, tr("Help"));
     connect(actionHelp, &QAction::triggered, this, &TrayIcon::cbHelp);
     actionImage = new QAction(icImage, tr("Image"));
-    actionImage->setShortcut(QKeySequence("Ctrl+Shift+I"));
+    actionImage->setShortcut(hkImageKeys);
     connect(actionImage, &QAction::triggered, this, &TrayIcon::cbImage);
     actionGif = new QAction(icGif, tr("GIF"));
-    actionGif->setShortcut(QKeySequence("Ctrl+Shift+H"));
+    actionGif->setShortcut(hkGifKeys);
     connect(actionGif, &QAction::triggered, this, &TrayIcon::cbGif);
     actionSettings = new QAction(icSettings, tr("Settings"));
     connect(actionSettings, &QAction::triggered, this, &TrayIcon::cbSettings);

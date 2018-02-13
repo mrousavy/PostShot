@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include <qhotkey.h>
+#include "globals.h"
 #include "GUI/CaptureImage.h"
 #include "GUI/TrayIcon.h"
 
@@ -26,10 +27,12 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(false);
 
     // Register hotkeys
-    QHotkey imageHotkey(QKeySequence("Ctrl+Shift+I"), true);
+    hkImageKeys = QKeySequence("Ctrl+Shift+I");
+    QHotkey imageHotkey(hkImageKeys, true);
     QObject::connect(&imageHotkey, &QHotkey::activated, &imageCallback);
 
-    QHotkey gifHotkey(QKeySequence("Ctrl+Shift+H"), true);
+    hkGifKeys = QKeySequence("Ctrl+Shift+H");
+    QHotkey gifHotkey(hkGifKeys, true);
     QObject::connect(&gifHotkey, &QHotkey::activated, &gifCallback);
 
     // Register resources

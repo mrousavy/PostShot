@@ -28,7 +28,8 @@ SOURCES += \
     src/GUI/TrayIcon.cpp \
     src/GUI/SettingsWindow.cpp \
     src/GUI/HelpWindow.cpp \
-    src/GUI/CaptureImage.cpp
+    src/GUI/CaptureImage.cpp \
+    src/Modules/config.cpp
 
 HEADERS += \
     src/globals.h \
@@ -40,7 +41,8 @@ HEADERS += \
     src/GUI/SettingsWindow.h \
     src/GUI/HelpWindow.h \
     src/GUI/CaptureImage.h \
-    src/GUI/Animation.h
+    src/GUI/Animation.h \
+    src/Modules/config.h
 
 RESOURCES += \
     src/resources.qrc
