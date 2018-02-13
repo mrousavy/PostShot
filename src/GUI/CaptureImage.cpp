@@ -21,7 +21,8 @@ CaptureImage::CaptureImage(QWidget* parent)
     : QWidget(parent, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
       scene(new QGraphicsScene), view(new QGraphicsView(scene, this)),
       layout(new QVBoxLayout(this)), rect(scene->addRect(0, 0, 0, 0)),
-      image(Screenshot::getScreenshotFull()), windows(Helper::getAllWindows())
+      image(Screenshot::getScreenshotFull()), windows(Helper::getAllWindows()),
+      capture(0, 0, 0, 0)
 {
     // Window Metadata
     setWindowOpacity(0.0);
@@ -31,13 +32,16 @@ CaptureImage::CaptureImage(QWidget* parent)
     // Events setup
     installEventFilter(this); // Handle Keys
     scene->installEventFilter(this); // Handle Mouse
+    shortcut = new QShortcut(QKeySequence("Ctrl+A"), this);
+    connect(shortcut, &QShortcut::activated, this, &CaptureImage::captureAll);
 
     // QGraphicsScene setup
     auto pmitem = scene->addPixmap(this->image);
     rect->setZValue(pmitem->zValue() + 1);
     rect->setBrush(Qt::gray);
-    rect->setPen(QPen(Qt::black));
-    rect->setOpacity(0.4);
+    rect->setPen(QPen(Qt::black, 2));
+    rect->setOpacity(0.3);
+    rect->setRect(capture);
 
     // QGraphicsView setup
     //view->setBackgroundBrush(this->image);
@@ -61,6 +65,7 @@ CaptureImage::~CaptureImage()
     delete view;
     delete layout;
     delete rect;
+    delete shortcut;
 }
 
 void CaptureImage::show()
@@ -97,16 +102,34 @@ bool CaptureImage::onMouseDown(QMouseEvent* event)
 bool CaptureImage::onMouseMove(QMouseEvent*)
 {
     capture.setBottomRight(mapFromGlobal(QCursor::pos()));
-    rect->setRect(capture);
+    updateCapture();
     return true;
 }
 
 bool CaptureImage::onMouseUp(QMouseEvent*)
 {
+    captureFinish();
+    return true;
+}
+
+void CaptureImage::updateCapture()
+{
+    rect->setRect(capture);
+}
+
+void CaptureImage::captureFinish()
+{
     QPixmap cropped = image.copy(capture);
     ImageManipulation::quickSaveImage(cropped);
     close();
-    return true;
+}
+
+void CaptureImage::captureAll()
+{
+    capture.setTopLeft(QPoint(0, 0));
+    capture.setBottomRight(QPoint(width(), height()));
+    updateCapture();
+    captureFinish();
 }
 
 bool CaptureImage::eventFilter(QObject* obj, QEvent* event)

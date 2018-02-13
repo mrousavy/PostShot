@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QShortcut>
 
 #include "Modules/WindowHelper.h"
 
@@ -34,6 +35,7 @@ private:
     QGraphicsView* view;
     QLayout* layout;
     QGraphicsRectItem* rect;
+    QShortcut* shortcut;
     QPixmap image;
     QList<Helper::Window> windows;
     QRect capture;
@@ -44,10 +46,11 @@ private:
     bool onMouseDown(QMouseEvent* event);
     bool onMouseUp(QMouseEvent* event);
 
+    void updateCapture();
+    void captureFinish();
+    void captureAll();
+
 protected:
-    /*!
-     * Qt event handler (key press)
-     */
     bool eventFilter(QObject* obj, QEvent* event);
 };
 
