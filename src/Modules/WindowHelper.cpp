@@ -45,13 +45,12 @@ namespace WindowHelper
             return TRUE;
 #endif
 
-        LPSTR title;
-        GetWindowTextA(hWnd, title, tlength + 1);
-        qDebug() << title;
+        wchar_t title[256];
+        GetWindowText(hWnd, title, 256);
         WindowSpec window;
         window.rect = QRect(rect.left, rect.top, rect.right, rect.bottom);
         window.z = currz++;
-        window.name = title;
+        window.name = QString::fromWCharArray(title);
 
         windows->append(window);
 
