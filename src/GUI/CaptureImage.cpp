@@ -52,7 +52,7 @@ CaptureImage::CaptureImage(QWidget* parent)
     view->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
     // Layout setup
-    layout->setContentsMargins(0,0,0,0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(view);
     setLayout(layout);
 
