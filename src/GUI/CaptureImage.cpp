@@ -36,8 +36,8 @@ CaptureImage::CaptureImage(QWidget* parent)
     connect(shortcut, &QShortcut::activated, this, &CaptureImage::captureAll);
 
     // QGraphicsScene setup
-    auto pmitem = scene->addPixmap(this->image);
-    rect->setZValue(pmitem->zValue() + 1);
+    scene->addPixmap(this->image);
+    rect->setZValue(1);
     rect->setBrush(Qt::gray);
     rect->setPen(QPen(Qt::black, 2));
     rect->setOpacity(0.3);
@@ -108,7 +108,8 @@ bool CaptureImage::onMouseMove(QMouseEvent*)
 
 bool CaptureImage::onMouseUp(QMouseEvent*)
 {
-    captureFinish();
+    if (capture.width() > 7 && capture.height() > 7)
+        captureFinish();
     return true;
 }
 
