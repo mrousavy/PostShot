@@ -47,14 +47,14 @@ namespace ImageManipulation
         return path.isEmpty() ? "." : path;
     }
 
-    QString quickPath(const int number = 0)
+    QString quickPath(const int number = 1)
     {
         return desktopFolder() + "/Screenshot" + QString::number(number) + ".png";
     }
 
     void quickSaveImage(const QPixmap& pixelmap)
     {
-        int i = 0;
+        int i = 1;
         for (; fileExists(quickPath(i)); i++) {}
         QString filename = quickPath(i);
 

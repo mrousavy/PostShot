@@ -29,7 +29,8 @@ SOURCES += \
     src/GUI/SettingsWindow.cpp \
     src/GUI/HelpWindow.cpp \
     src/GUI/CaptureImage.cpp \
-    src/Modules/config.cpp
+    src/Modules/config.cpp \
+    src/Modules/WindowHelper.cpp
 
 HEADERS += \
     src/globals.h \
