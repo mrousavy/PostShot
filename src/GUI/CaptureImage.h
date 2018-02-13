@@ -3,8 +3,7 @@
 
 #include <QWidget>
 #include <QPixmap>
-#include <QGraphicsScene>
-#include <QGraphicsView>
+#include <QLabel>
 #include <QShortcut>
 
 #include "Modules/WindowHelper.h"
@@ -31,10 +30,7 @@ signals:
 public slots:
 
 private:
-    QGraphicsScene* scene;
-    QGraphicsView* view;
-    QLayout* layout;
-    QGraphicsRectItem* rect;
+    QLabel* label;
     QShortcut* shortcut;
     QList<WindowHelper::WindowSpec> windows;
     QPoint start, end;
@@ -52,6 +48,7 @@ private:
     void captureAll();
 
 protected:
+    void paintEvent(QPaintEvent *event);
     bool eventFilter(QObject* obj, QEvent* event);
 };
 

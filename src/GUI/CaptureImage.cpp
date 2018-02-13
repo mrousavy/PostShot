@@ -1,12 +1,11 @@
 #include "GUI/CaptureImage.h"
 
 #include <QKeyEvent>
-#include <QGraphicsScene>
-#include <QGraphicsView>
 #include <QVBoxLayout>
-#include <QGraphicsRectItem>
 #include <algorithm>
 #include <functional>
+#include <QLabel>
+#include <QPainter>
 
 #include "GUI/Animation.h"
 #include "Modules/Screenmanager.h"
@@ -23,8 +22,6 @@
 
 CaptureImage::CaptureImage(QWidget* parent)
     : QWidget(parent, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint),
-      scene(new QGraphicsScene), view(new QGraphicsView(scene, this)),
-      layout(new QVBoxLayout(this)), rect(scene->addRect(0, 0, 0, 0)),
       windows(WindowHelper::getAllWindows()), capture(0, 0, 0, 0),
       image(Screenshot::getScreenshotFull())
 {
@@ -34,55 +31,30 @@ CaptureImage::CaptureImage(QWidget* parent)
 
     // Events setup
     installEventFilter(this); // Handle Keys
-    scene->installEventFilter(this); // Handle Mouse
     shortcut = new QShortcut(QKeySequence("Ctrl+A"), this);
     connect(shortcut, &QShortcut::activated, this, &CaptureImage::captureAll);
-
-    // QGraphicsScene setup
-    scene->addPixmap(this->image);
-    rect->setZValue(1);
-    rect->setBrush(Qt::gray);
-    rect->setPen(QPen(Qt::black, 2));
-    rect->setOpacity(0.3);
-    rect->setRect(capture);
-
-    // QGraphicsView setup
-    //view->setBackgroundBrush(this->image);
-    view->setFrameStyle(QFrame::NoFrame); // Disable ~1px borders
-    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setCacheMode(QGraphicsView::CacheBackground);
-    view->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-
-    // Layout setup
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(view);
-    setLayout(layout);
 
     setCursor(Qt::CrossCursor);
 #ifdef FADE
     setWindowOpacity(0.0);
 #endif
 
-    for (auto window : windows) {
-        QRectF rect(mapFromGlobal(window.rect.topLeft()),
-                    mapFromGlobal(window.rect.bottomRight()));
+//    for (auto window : windows) {
+//        QRectF rect(mapFromGlobal(window.rect.topLeft()),
+//                    mapFromGlobal(window.rect.bottomRight()));
 
-        // TODO: Do we really need that? Overlays are last-z-index anyway
-        if (rect.height() + 5 < this->height() &&
-                rect.width() + 5 < this->width()) {
-            qDebug() << window.name << window.z << window.rect;
-            scene->addRect(rect, QPen(Qt::red), Qt::blue);
-        }
-    }
+//        // TODO: Do we really need that? Overlays are last-z-index anyway
+//        if (rect.height() + 5 < this->height() &&
+//                rect.width() + 5 < this->width()) {
+//            qDebug() << window.name << window.z << window.rect;
+//            scene->addRect(rect, QPen(Qt::red), Qt::blue);
+//        }
+//    }
 }
 
 CaptureImage::~CaptureImage()
 {
-    delete scene;
-    delete view;
-    delete layout;
-    delete rect;
+    delete label;
     delete shortcut;
 }
 
@@ -127,6 +99,7 @@ bool CaptureImage::onMouseMove(QMouseEvent*)
 {
     end = mapFromGlobal(QCursor::pos());
     updateCapture();
+    update();
     return true;
 }
 
@@ -144,7 +117,7 @@ void CaptureImage::updateCapture()
     capture.setTop(min(start.y(), end.y()));
     capture.setRight(max(start.x(), end.x()));
     capture.setBottom(max(start.y(), end.y()));
-    rect->setRect(capture);
+    // TODO: draw rect
 }
 
 void CaptureImage::captureFinish()
@@ -163,6 +136,16 @@ void CaptureImage::captureAll()
     updateCapture();
     qApp->processEvents();
     captureFinish();
+}
+
+void CaptureImage::paintEvent(QPaintEvent* event)
+{
+    QPainter painter(this);
+    painter.drawPixmap(0, 0, width(), height(), image);
+
+    QColor color(Qt::gray);
+    color.setAlphaF(0.3);
+    painter.fillRect(capture, color);
 }
 
 bool CaptureImage::eventFilter(QObject* obj, QEvent* event)
