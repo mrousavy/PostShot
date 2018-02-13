@@ -11,15 +11,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 DEPENDPATH += src/ \
-#         QHotkeys/src/ \
-         UGlobalHotkey/
+         QHotkey/QHotkey/
 INCLUDEPATH += src/ \
-#         QHotkeys/src/ \
-         UGlobalHotkey/
+         QHotkey/QHotkey/
 
 # QHotkeys stuff
-!include(UGlobalHotkey/uglobalhotkey.pri) {
-    error("Could not find UGlobalHotkey project!")
+!include(QHotkey/qhotkey.pri) {
+    error("Could not find QHotkey project!")
 }
 
 
