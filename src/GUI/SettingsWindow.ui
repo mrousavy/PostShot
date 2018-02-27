@@ -19,7 +19,7 @@
   <property name="windowTitle">
    <string>PostShot Settings</string>
   </property>
-  <widget class="QWidget" name="verticalLayoutWidget">
+  <widget class="QQuickWidget" name="quickWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -28,40 +28,18 @@
      <height>301</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="topMargin">
-     <number>50</number>
-    </property>
-    <property name="bottomMargin">
-     <number>50</number>
-    </property>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="leftMargin">
-       <number>50</number>
-      </property>
-      <property name="rightMargin">
-       <number>50</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Sample Text.</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>Test Button</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
+   <property name="resizeMode">
+    <enum>QQuickWidget::SizeRootObjectToView</enum>
+   </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QQuickWidget</class>
+   <extends>QWidget</extends>
+   <header>QtQuickWidgets/QQuickWidget</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

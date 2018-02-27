@@ -8,6 +8,8 @@
 #include "GUI/CaptureImage.h"
 #include "GUI/SettingsWindow.h"
 #include "GUI/HelpWindow.h"
+#include <QQuickWidget>
+#include <QDebug>
 
 TrayIcon::TrayIcon(QObject* parent, QIcon& icon, QApplication& app)
  : QObject(parent), _app(app)
@@ -109,7 +111,7 @@ void TrayIcon::cbImage()
 void TrayIcon::cbGif()
 {
     // TODO: GIF Click
-    printf("GIF clicked.");
+    qDebug() << "GIF clicked.";
     auto pixmap = Screenshot::getScreenshotFull();
     ImageManipulation::chooseSaveImage(pixmap);
 }
@@ -117,6 +119,10 @@ void TrayIcon::cbGif()
 void TrayIcon::cbSettings()
 {
     (new SettingsWindow)->show();
+    // TODO: QQuickWidget instead of SettingsWindow ??
+//    QQuickWidget *view = new QQuickWidget;
+//    view->setSource(QUrl("qrc:GUI/SettingsWindow.qml"));
+//    view->show();
 }
 
 void TrayIcon::cbExit()

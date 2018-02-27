@@ -1,4 +1,4 @@
-QT += core gui quick
+QT += core gui quickwidgets
 unix {
     QT += gui-private
 }
@@ -50,4 +50,5 @@ RESOURCES += \
 
 FORMS += \
     src/GUI/HelpWindow.ui \
+    src/GUI/SettingsWindow.ui \
     src/GUI/SettingsWindow.ui
