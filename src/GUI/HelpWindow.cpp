@@ -1,5 +1,5 @@
 #include "HelpWindow.h"
-#include "ui_helpwindow.h"
+#include "ui_HelpWindow.h"
 
 HelpWindow::HelpWindow(QWidget *parent) :
     QWidget(parent),
