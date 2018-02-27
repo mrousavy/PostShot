@@ -1,4 +1,4 @@
-QT += core gui
+QT += core gui quick
 unix {
     QT += gui-private
 }
