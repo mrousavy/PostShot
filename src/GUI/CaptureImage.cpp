@@ -124,7 +124,8 @@ void CaptureImage::captureFinish()
 {
     setCursor(Qt::WaitCursor);
     QPixmap cropped = image.copy(capture);
-    ImageManipulation::quickSaveImage(cropped);
+    QImage shadowImage = ImageManipulation::drawWindowShadow(cropped.toImage());
+    ImageManipulation::quickSaveImage(shadowImage);
     setCursor(Qt::ArrowCursor);
     close();
 }

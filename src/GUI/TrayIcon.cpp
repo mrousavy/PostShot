@@ -113,7 +113,7 @@ void TrayIcon::cbGif()
     // TODO: GIF Click
     qDebug() << "GIF clicked.";
     auto pixmap = Screenshot::getScreenshotFull();
-    ImageManipulation::chooseSaveImage(pixmap);
+    ImageManipulation::chooseSaveImage(pixmap.toImage());
 }
 
 void TrayIcon::cbSettings()
