@@ -9,6 +9,8 @@
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsEffect>
 
+#define BLUR_DISTANCE 15
+
 QT_BEGIN_NAMESPACE
     extern Q_WIDGETS_EXPORT void qt_blurImage(QPainter *p, QImage &blurImage, qreal radius, bool quality, bool alphaOnly, int transposed = 0 );
 QT_END_NAMESPACE
@@ -18,38 +20,26 @@ namespace ImageManipulation
     QImage drawWindowShadow(const QImage& image)
     {
         // Create new Img with same Size
-        QSize fullSize(image.size().width() + 30, image.size().height() + 30);
+        QSize fullSize(image.size().width() + 2 * BLUR_DISTANCE, image.size().height() + 2 * BLUR_DISTANCE);
+
+        QImage scaled = image.scaled(fullSize);
+
+        QImage temp(fullSize, QImage::Format_ARGB32_Premultiplied);
+        temp.fill(0);
+        QPainter tempPainter(&temp);
+        tempPainter.setCompositionMode(QPainter::CompositionMode_Source);
+        tempPainter.drawImage(QPointF(BLUR_DISTANCE, BLUR_DISTANCE), scaled);
+        tempPainter.end();
+
         QImage shadowImage(fullSize, QImage::Format_ARGB32_Premultiplied);
-
-        // Fill it with transparency
-        QPainter painter(&shadowImage);
-        QPen pen;
-        pen.setStyle(Qt::NoPen);
-        painter.setPen(pen);
-        painter.setRenderHint(QPainter::Antialiasing);
-        painter.fillRect(QRect(0, 0, fullSize.width(), fullSize.height()), QColor(255, 255, 255, 0));
-
-        // Draw Rounded Rectangle as Shadow
-        QPainterPath path;
-        path.addRoundedRect(QRect(0, 0, fullSize.width(), fullSize.height()), 15, 15);
-        painter.fillPath(path, QColor(110, 152, 226));
-        painter.drawPath(path);
-        painter.end();
-
         QImage blurred(shadowImage.size(), QImage::Format_ARGB32_Premultiplied);
         blurred.fill(0);
         QPainter blurPainter(&blurred);
-        qt_blurImage(&blurPainter, blurred, 5.0, true, false);
+        qt_blurImage(&blurPainter, temp, 5.0, true, false);
         blurPainter.end();
 
 
         return blurred;
-
-
-
-        // Draw Original Img over background
-        painter.drawImage(0, 0, blurred);
-        painter.drawImage(15, 15, image);
 
         return shadowImage;
     }
